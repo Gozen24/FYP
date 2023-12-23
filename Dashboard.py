@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 
 # Load the trained GP model
 def DisplayGraph(state, name):
-    path = "../movavg/"
+    path = "FYP/movavg/"
     file = name
     format = ".csv"
     data = pd.read_csv(path + file + format)
@@ -79,7 +79,7 @@ def DisplayGraph(state, name):
     # Display the interactive plot using Streamlit
     st.plotly_chart(fig)
 
-path = "FYP/movavg/"
+path = "../movavg/"
 file = "COCA COLA (BOTOL),1.5 liter"
 format = ".csv"
 data = pd.read_csv(path + file + format)
