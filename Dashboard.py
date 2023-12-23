@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 
 # Load the trained GP model
 def DisplayGraph(state, name):
-    path = "FYP/movavg/"
+    path = "movavg/"
     file = name
     format = ".csv"
     data = pd.read_csv(path + file + format)
@@ -21,7 +21,7 @@ def DisplayGraph(state, name):
     # Filter the data for the chosen state
     filtered_data = data[data['state'] == chosen_state]
 
-    model_filename = f"FYP/savedModel/({chosen_state}){file}.pkl"
+    model_filename = f"savedModel/({chosen_state}){file}.pkl"
     try:
         # Try to load the model
         with open(model_filename, 'rb') as f:
