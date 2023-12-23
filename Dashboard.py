@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 
 # Load the trained GP model
 def DisplayGraph(state, name):
-    path = "FYP/movavg/"
+    path = "/movavg/"
     file = name
     format = ".csv"
     data = pd.read_csv(path + file + format)
