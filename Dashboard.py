@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 import joblib
 import streamlit as st
 import plotly.graph_objects as go
+import sklearn
 
 # Load the trained GP model
 def DisplayGraph(state, name):
