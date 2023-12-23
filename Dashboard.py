@@ -1,10 +1,7 @@
 import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
-from sklearn.gaussian_process import GaussianProcessRegressor
-from sklearn.gaussian_process.kernels import RBF, WhiteKernel
 import joblib
-import matplotlib.pyplot as plt
 import streamlit as st
 import plotly.graph_objects as go
 
