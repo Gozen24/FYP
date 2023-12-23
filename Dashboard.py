@@ -79,7 +79,7 @@ def DisplayGraph(state, name):
     # Display the interactive plot using Streamlit
     st.plotly_chart(fig)
 
-path = "../movavg/"
+path = "/movavg/"
 file = "COCA COLA (BOTOL),1.5 liter"
 format = ".csv"
 data = pd.read_csv(path + file + format)
