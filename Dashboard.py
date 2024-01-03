@@ -34,7 +34,7 @@ def CurrentPrice(name):
 # Load the trained GP model
 def DisplayGraph(state, name):
 
-    data = pd.read_csv("C:/Users/Asus/Desktop/FYP/DATA/movavg/" + name + ".csv")
+    data = pd.read_csv("movavg/" + name + ".csv")
     # data1 = pd.read_csv("C:/Users/Asus/Desktop/FYP/DATA/averaged/" + name + ".csv")
     # Convert date column to datetime format
     data['date'] = pd.to_datetime(data['date'], format='%Y-%m-%d')
@@ -46,7 +46,7 @@ def DisplayGraph(state, name):
     filtered_data = data[data['state'] == state]
     # filtered_data1 = data1[data1['state'] == state]
 
-    model_filename = f"C:/Users/Asus/Desktop/FYP/DATA/savedModel/({state}){name}.pkl"
+    model_filename = f"savedModel/({state}){name}.pkl"
     try:
         # Try to load the model
         with open(model_filename, 'rb') as f:
