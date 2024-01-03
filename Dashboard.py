@@ -117,7 +117,7 @@ unique_states = ['Choose a State...','Johor', 'Kedah', 'Kelantan', 'Melaka', 'Ne
 
 # Streamlit App
 col1,col2=st.columns([0.2,1])
-with col1:
+# with col1:
     # st.image("dashboard/img.png",width=100)
 with col2:
     st.title("HargaBarangNow")
