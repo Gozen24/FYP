@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 import sklearn
 
 def CurrentPrice(name):
-    data = pd.read_csv("C:/Users/Asus/Desktop/FYP/DATA/averaged/"+name+".csv",index_col=False)
+    data = pd.read_csv("movavg/"+name+".csv",index_col=False)
     
     data['Percentage Difference'] = data.groupby('state')['price'].pct_change() * 100
     # Filtering only the latest date prices
