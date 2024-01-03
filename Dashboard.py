@@ -179,8 +179,9 @@ with tab1:
             # with col1:
             percentage_difference=DisplayGraph(chosen_state, name)
     with col1:
-        if percentage_difference is not None:
-            if ((chosen_state != 'Choose a State...') and (name != 'Choose an item...')):
+        
+        if ((chosen_state != 'Choose a State...') and (name != 'Choose an item...')):
+            if percentage_difference is not None:
                 if percentage_difference > 0:
                     st.subheader(f":red[+{str(round(percentage_difference,2))}%]")
                 elif percentage_difference < 0:
