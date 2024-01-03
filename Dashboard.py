@@ -179,12 +179,13 @@ with tab1:
             # with col1:
             percentage_difference=DisplayGraph(chosen_state, name)
     with col1:
-        if ((chosen_state != 'Choose a State...') and (name != 'Choose an item...')):
-            if percentage_difference > 0:
-                st.subheader(f":red[+{str(round(percentage_difference,2))}%]")
-            elif percentage_difference < 0:
-                st.subheader(f":blue[{str(round(percentage_difference,2))}%]")
-
+        if percentage_difference is not None:
+            if ((chosen_state != 'Choose a State...') and (name != 'Choose an item...')):
+                if percentage_difference > 0:
+                    st.subheader(f":red[+{str(round(percentage_difference,2))}%]")
+                elif percentage_difference < 0:
+                    st.subheader(f":blue[{str(round(percentage_difference,2))}%]")
+        
         # Display date picker in the second column
         # with col2:
             # selected_date = st.date_input("Select a Date", datetime(2023, 1, 1))
