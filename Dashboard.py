@@ -51,7 +51,7 @@ def SelectBox(category):
 def DisplayGraph(state, category, name):
     if category == "Processed Food":
         data = pd.read_csv("averaged/Processed Food" + name + ".csv")
-        model_filename = f"savedModel/processed food model/({state}){name}.pkl"
+        model_filename = f"savedModel/({state}){name}.pkl"
 
     elif category == "Raw Food":
         data = pd.read_csv("averaged/Raw Food" + name + ".csv")
