@@ -31,7 +31,7 @@ def CurrentPrice(name,category):
                                     # .apply(lambda x: f"{'+' if x > 0 else ''}{round(x, 2)}%" if pd.notna(x) else "")
     
 
-
+    st.write("Price difference between October 2023 and November 2023 ")
     st.dataframe(df[['State',  'Price', 'Percentage Difference']],hide_index=True, use_container_width=True,height=602)
     
 def SelectBox(category):
