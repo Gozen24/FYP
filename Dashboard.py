@@ -59,7 +59,7 @@ def DisplayGraph(state, category, name):
     
     # data1 = pd.read_csv("C:/Users/Asus/Desktop/FYP/DATA/averaged/" + name + ".csv")
     # Convert date column to datetime format
-    data['date'] = pd.to_datetime(data['date'], format='%Y-%m-%d')
+    data['date'] = pd.to_datetime(data['date'])
 
     
     
