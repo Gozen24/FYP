@@ -204,7 +204,7 @@ with tab1:
 
             # Display graph in the first column
             # with col1:
-            percentage_difference=DisplayGraph(chosen_state, name)
+            DisplayGraph(chosen_state, name)
     with col1:
         
         if ((chosen_state != 'Choose a State...') and (name != 'Choose an item...')):
