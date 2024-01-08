@@ -7,8 +7,10 @@ import plotly.graph_objects as go
 import sklearn
 
 def CurrentPrice(name):
-    data = pd.read_csv("averaged/"+name+".csv",index_col=False)
-    
+    if category == "Processed Food":
+        data = pd.read_csv("averaged/Processed Food/"+name+".csv",index_col=False)
+    elif category == "Raw Food":
+        data = pd.read_csv("averaged/Raw Food/"+name+".csv",index_col=False)
     data['Percentage Difference'] = data.groupby('state')['price'].pct_change() * 100
     # Filtering only the latest date prices
     df = data.groupby('state').tail(1)
@@ -29,8 +31,21 @@ def CurrentPrice(name):
     
 
 
-    st.table(df[['State',  'Price', 'Percentage Difference']])
+    st.dataframe(df[['State',  'Price', 'Percentage Difference']],hide_index=True, use_container_width=True,height=602)
+    
+def SelectBox(category):
+    if category == "Processed Food":
+        csv_files = [file for file in os.listdir("averaged/Processed Food") if file.endswith(".csv")]
 
+    elif category == "Raw Food":
+        csv_files = [file for file in os.listdir("averaged/Raw Food") if file.endswith(".csv")]
+    itemls = []
+    for file in csv_files:
+        itemls.append(file[:-4])
+
+    name = st.selectbox("Item Name",itemls)
+    return name
+    
 # Load the trained GP model
 def DisplayGraph(state, name):
 
@@ -117,21 +132,20 @@ unique_states = ['Choose a State...','Johor', 'Kedah', 'Kelantan', 'Melaka', 'Ne
 
 # Streamlit App
 col1,col2=st.columns([0.2,1])
-# with col1:
-    # st.image("dashboard/img.png",width=100)
+with col1:
+    st.write("")
+    st.image("dashboard/logo.png",width=100)
 with col2:
     st.title("HargaBarangNow")
-# st.image(image)
-# st.sidebar.button("Button")
-# st.sidebar.slider("Slider", 0, 100, 50)
-# st.sidebar.date_input("Date Input")
+    
 
 
-# st.header("HargaBarangNow in Malaysia")
 st.write("Welcome to the Website for data and insights on food prices.")
+st.caption("Last updated on November 2023")
 st.write("")
 
-# Sidebar Layout
+
+
 tab1, tab2 = st.tabs(["Price Trend", "Current Price"])
 
 with tab1:
@@ -146,8 +160,20 @@ with tab1:
         st.write("")
         st.write("")
 
-        chosen_state = st.selectbox('Select a State', unique_states)
-        name = st.selectbox('Select an Item', ["Choose an item...", "COCA COLA (BOTOL),1.5 liter", "DUTCH LADY UHT COKLAT (KOTAK),200ml"])
+        chosen_state = st.selectbox('Select State', unique_states)
+        category = st.selectbox('Select Food Category', ["Processed Food", "Raw Food"])
+        if category == "Processed Food":
+            name = st.selectbox('Select Item', ["Choose an item...", "COCA COLA (BOTOL),1.5 liter","COCA COLA (TIN),320ml", "DUTCH LADY UHT COKLAT (KOTAK),200ml","DUTCH LADY UHT FULL CREAM (KOTAK),200ml"
+                                        ,"F&N OREN (BOTOL),1.5 liter","F&N OREN (TIN),325 ml","HORLICKS (PAKET),400g","KICAP LEMAK MANIS CAP KIPAS UDANG,345ml"
+                                        ,"KICAP MASIN ADABI,340ml","KICAP MANIS ADABI,340ml","KORDIAL SUNQUICK (OREN),840 ml","KRIMER MANIS PEKAT CAP SAJI,500g"
+                                        ,"KRIMER SEJAT CAP F&N,390g","MACKAREL CAP AYAM (SOS TOMATO),425g","MAGGI MI SEGERA PERISA KARI,5 X 79g","MARJERIN DAISY,240g"
+                                        ,"MENTEGA ANCHOR (SALTED),227g","MENTEGA KACANG HALUS LADY'S CHOIE,340g","MI SEDAP MI GORENG PERISA ASLI,5 X 90g"
+                                        ,"MILO (PAKET),1kg","MILO (PAKET),400g"])
+            
+        elif category == "Raw Food":
+            name = st.selectbox('Select Item', ["Choose an item...", "COCA COLA (BOTOL),1.5 liter","COCA COLA (TIN),320ml", "DUTCH LADY UHT COKLAT (KOTAK),200ml","DUTCH LADY UHT FULL CREAM (KOTAK),200ml"
+                            ,"F&N OREN (BOTOL),1.5 liter","F&N OREN (TIN),325 ml","HORLICKS (PAKET),400g","KICAP LEMAK MANIS CAP KIPAS UDANG,345ml"
+                            ,"KICAP MASIN ADABI,340ml","KICAP MANIS ADABI,340ml"])
 
         # Display date picker in the second column
     with col2:
@@ -182,6 +208,7 @@ with tab1:
         
         if ((chosen_state != 'Choose a State...') and (name != 'Choose an item...')):
             if percentage_difference is not None:
+
                 if percentage_difference > 0:
                     st.subheader(f":red[+{str(round(percentage_difference,2))}%]")
                 elif percentage_difference < 0:
@@ -196,9 +223,12 @@ with tab2:
     col1, col2, col3 = st.columns([0.3,0.3,0.3])
     with col1:
         # st.write("😊📉📈")
-        name = st.selectbox('Select Item', ["COCA COLA (BOTOL),1.5 liter", "DUTCH LADY UHT COKLAT (KOTAK),200ml"])
+        category=st.selectbox("Food Categories",(['Processed Food','Raw Food']))
+        
+    with col2:
+        name = SelectBox(category)
     # with col2:
     st.write("")
 
-    CurrentPrice(name)
+    CurrentPrice(name,category)
 
