@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 import sklearn
 import os
 
-def CurrentPrice(name):
+def CurrentPrice(name,category):
     if category == "Processed Food":
         data = pd.read_csv("averaged/Processed Food/"+name+".csv",index_col=False)
     elif category == "Raw Food":
@@ -204,7 +204,7 @@ with tab1:
 
             # Display graph in the first column
             # with col1:
-            DisplayGraph(chosen_state, name)
+            percentage_difference=DisplayGraph(chosen_state, name)
     with col1:
         
         if ((chosen_state != 'Choose a State...') and (name != 'Choose an item...')):
