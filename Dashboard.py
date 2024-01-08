@@ -178,9 +178,7 @@ with tab1:
                                         ,"MILO (PAKET),1kg","MILO (PAKET),400g"])
             
         elif category == "Raw Food":
-            name = st.selectbox('Select Item', ["Choose an item...", "COCA COLA (BOTOL),1.5 liter","COCA COLA (TIN),320ml", "DUTCH LADY UHT COKLAT (KOTAK),200ml","DUTCH LADY UHT FULL CREAM (KOTAK),200ml"
-                            ,"F&N OREN (BOTOL),1.5 liter","F&N OREN (TIN),325 ml","HORLICKS (PAKET),400g","KICAP LEMAK MANIS CAP KIPAS UDANG,345ml"
-                            ,"KICAP MASIN ADABI,340ml","KICAP MANIS ADABI,340ml"])
+            name = st.selectbox('Select Item', ["Choose an item...","BROKOLI","BETIK BIASA"])
 
         # Display date picker in the second column
     with col2:
