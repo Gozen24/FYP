@@ -62,7 +62,7 @@ def DisplayGraph(state, name):
     filtered_data = data[data['state'] == state]
     # filtered_data1 = data1[data1['state'] == state]
 
-    model_filename = f"savedModel/processed food mmodel({state}){name}.pkl"
+    model_filename = f"savedModel/processed food model/({state}){name}.pkl"
     try:
         # Try to load the model
         with open(model_filename, 'rb') as f:
