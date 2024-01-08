@@ -50,11 +50,11 @@ def SelectBox(category):
 # Load the trained GP model
 def DisplayGraph(state, category, name):
     if category == "Processed Food":
-        data = pd.read_csv("averaged/Processed Food" + name + ".csv")
+        data = pd.read_csv("averaged/Processed Food/" + name + ".csv")
         model_filename = f"savedModel/({state}){name}.pkl"
 
     elif category == "Raw Food":
-        data = pd.read_csv("averaged/Raw Food" + name + ".csv")
+        data = pd.read_csv("averaged/Raw Food/" + name + ".csv")
         model_filename = f"savedModel/raw food model/({state}){name}.pkl"
     
     # data1 = pd.read_csv("C:/Users/Asus/Desktop/FYP/DATA/averaged/" + name + ".csv")
