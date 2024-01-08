@@ -48,9 +48,15 @@ def SelectBox(category):
     return name
     
 # Load the trained GP model
-def DisplayGraph(state, name):
+def DisplayGraph(state, category, name):
+    if category == "Processed Food":
+        data = pd.read_csv("averaged/Processed Food" + name + ".csv")
+        model_filename = f"savedModel/processed food model/({state}){name}.pkl"
 
-    data = pd.read_csv("movavg/" + name + ".csv")
+    elif category == "Raw Food":
+        data = pd.read_csv("averaged/Raw Food" + name + ".csv")
+        model_filename = f"savedModel/raw food model/({state}){name}.pkl"
+    
     # data1 = pd.read_csv("C:/Users/Asus/Desktop/FYP/DATA/averaged/" + name + ".csv")
     # Convert date column to datetime format
     data['date'] = pd.to_datetime(data['date'], format='%Y-%m-%d')
@@ -62,7 +68,7 @@ def DisplayGraph(state, name):
     filtered_data = data[data['state'] == state]
     # filtered_data1 = data1[data1['state'] == state]
 
-    model_filename = f"savedModel/processed food model/({state}){name}.pkl"
+    
     try:
         # Try to load the model
         with open(model_filename, 'rb') as f:
