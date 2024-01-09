@@ -97,7 +97,7 @@ def DisplayGraphProcessed(state, name):
     latest_actual_price = filtered_data['price'].iloc[-2]
 
     # Calculate the percentage difference for the test data
-    percentage_difference_test = ((predicted_price_test_loaded[-1] - latest_actual_price) / latest_actual_price) * 100
+    percentage_difference_test = ((predicted_price_test_loaded[-1] - predicted_price_test_loaded[30]) / predicted_price_test_loaded[30]) * 100
 
     # st.write(percentage_difference_test)
 
