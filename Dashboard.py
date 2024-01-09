@@ -93,11 +93,8 @@ def DisplayGraphProcessed(state, name):
 
     predicted_price_test_loaded = y_pred_test_loaded * np.max(filtered_data['price'])
 
-    # Calculate the latest actual price
-    latest_actual_price = filtered_data['price'].iloc[-2]
-
     # Calculate the percentage difference for the test data
-    percentage_difference_test = ((predicted_price_test_loaded[-1] - predicted_price_test_loaded[30]) / predicted_price_test_loaded[30]) * 100
+    percentage_difference_test = ((predicted_price_test_loaded[-1] - predicted_price_test_loaded[31]) / predicted_price_test_loaded[31]) * 100
 
     # st.write(percentage_difference_test)
 
