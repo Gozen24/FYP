@@ -360,8 +360,10 @@ if __name__ == "__main__":
     
             st.plotly_chart(dummy_fig)
         else:
-    
-            percentage_difference=DisplayGraph(chosen_state, name)
+            if category=="Processed Food"
+                percentage_difference=DisplayGraphProcessed(chosen_state, name)
+            elif category=="Raw Food"
+                percentage_difference=DisplayGraphRaw(chosen_state, name)
     
         if ((chosen_state is not None) and (name is not None) and (category is not None) ):
             if percentage_difference is not None:
