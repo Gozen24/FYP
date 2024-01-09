@@ -13,7 +13,7 @@ def CurrentPrice(name,category):
         data = pd.read_csv("data/processed food/"+name+".csv",index_col=False)
     elif category == "Raw Food":
         data = pd.read_csv("data/raw food/"+name+".csv",index_col=False)
-    data['Percentage Difference'] = data.groupby('state')['price'].pct_change() * 100
+    data['Percentage Difference (from OCT 2023)'] = data.groupby('state')['price'].pct_change() * 100
     # Filtering only the latest date prices
     df = data.groupby('state').tail(1)
 
