@@ -95,7 +95,8 @@ def DisplayGraphProcessed(state, name):
 
     # Calculate the percentage difference for the test data
     percentage_difference_test = ((predicted_price_test_loaded[-1] - predicted_price_test_loaded[31]) / predicted_price_test_loaded[31]) * 100
-
+    st.write(predicted_price_test_loaded[-31])
+    st.write(predicted_price_test_loaded[-1])
     # st.write(percentage_difference_test)
 
     # Create an interactive plot using Plotly
