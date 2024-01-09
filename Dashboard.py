@@ -9,9 +9,9 @@ import os
 
 def CurrentPrice(name,category):
     if category == "Processed Food":
-        data = pd.read_csv("averaged/Processed Food/"+name+".csv",index_col=False)
+        data = pd.read_csv("data/processed food/"+name+".csv",index_col=False)
     elif category == "Raw Food":
-        data = pd.read_csv("averaged/Raw Food/"+name+".csv",index_col=False)
+        data = pd.read_csv("data/raw food/"+name+".csv",index_col=False)
     data['Percentage Difference'] = data.groupby('state')['price'].pct_change() * 100
     # Filtering only the latest date prices
     df = data.groupby('state').tail(1)
@@ -36,10 +36,10 @@ def CurrentPrice(name,category):
     
 def SelectBox(category):
     if category == "Processed Food":
-        csv_files = [file for file in os.listdir("averaged/Processed Food") if file.endswith(".csv")]
+        csv_files = [file for file in os.listdir("data/processed food") if file.endswith(".csv")]
 
     elif category == "Raw Food":
-        csv_files = [file for file in os.listdir("averaged/Raw Food") if file.endswith(".csv")]
+        csv_files = [file for file in os.listdir("data/raw food") if file.endswith(".csv")]
     itemls = []
     for file in csv_files:
         itemls.append(file[:-4])
@@ -48,14 +48,11 @@ def SelectBox(category):
     return name
     
 # Load the trained GP model
-def DisplayGraph(state, category, name):
-    if category == "Processed Food":
-        data = pd.read_csv("movavg/" + name + ".csv")
-        model_filename = f"savedModel/({state}){name}.pkl"
+def DisplayGraph(state, name):
 
-    elif category == "Raw Food":
-        data = pd.read_csv("averaged/Raw Food/" + name + ".csv")
-        model_filename = f"savedModel/raw food model/({state}){name}.pkl"
+    data = pd.read_csv("movavg/" + name + ".csv")
+    model_filename = f"model/processed food/({state}){name}.pkl"
+
     
     # data1 = pd.read_csv("C:/Users/Asus/Desktop/FYP/DATA/averaged/" + name + ".csv")
     # Convert date column to datetime format
@@ -208,7 +205,7 @@ with tab1:
 
             # Display graph in the first column
             # with col1:
-            percentage_difference=DisplayGraph(chosen_state,category, name)
+            percentage_difference=DisplayGraph(chosen_state,name)
     with col1:
         
         if ((chosen_state != 'Choose a State...') and (name != 'Choose an item...')):
