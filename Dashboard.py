@@ -39,8 +39,8 @@ def CurrentPrice(name,category):
     state_high=high['State'].iloc[0]
     price_high=high['Price (NOV 2023)'].iloc[0]
 
-    st.write(f'Highest Price at **{state_high}** with RM **{round(price_high,2)}**')
-    st.write(f'Lowest Price at **{state_low}** with RM **{round(price_low,2)}**')
+    st.write(f'Highest Price at **{state_high}** : RM **{round(price_high,2)}**')
+    st.write(f'Lowest Price at **{state_low}** : RM **{round(price_low,2)}**')
     
 def SelectBox(category):
     if category == "Processed Food":
