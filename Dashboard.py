@@ -280,7 +280,7 @@ if __name__ == "__main__":
     col1,col2=st.columns([0.2,1])
     with col1:
         st.write("")
-        # st.image("dashboard/logo.png",width=100)
+        st.image("logo.png",width=100)
     with col2:
         st.title("HargaBarangNow")
         
