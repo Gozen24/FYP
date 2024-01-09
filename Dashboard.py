@@ -6,6 +6,7 @@ import streamlit as st
 import plotly.graph_objects as go
 import sklearn
 import os
+import re
 
 def CurrentPrice(name,category):
     if category == "Processed Food":
