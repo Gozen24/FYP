@@ -29,7 +29,7 @@ def CurrentPrice(name,category):
         df['Percentage Difference (from OCT 2023)'].apply(lambda x: f"{'+' if x > 0 else ''}{round(x, 2)}%{'📈' if x > 0 else ''}{'📉' if x < 0 else ''}" if pd.notna(x) else "")
                                     # .apply(lambda x: f"{'+' if x > 0 else ''}{round(x, 2)}%" if pd.notna(x) else "")
     
-    st.dataframe(df[['State',  'Price (NOV 2023)', 'Percentage Difference (from OCT 2023)']],hide_index=True, use_container_width=True,height=602)
+    st.dataframe(df[['State',  'Price (NOV 2023)', 'Percentage Difference (from OCT 2023)']],hide_index=True, use_container_width=True,height=600)
 
     
     state_low=low['State'].iloc[0]
