@@ -94,9 +94,8 @@ def DisplayGraphProcessed(state, name):
     predicted_price_test_loaded = y_pred_test_loaded * np.max(filtered_data['price'])
 
     # Calculate the percentage difference for the test data
-    percentage_difference_test = ((predicted_price_test_loaded[-1] - predicted_price_test_loaded[31]) / predicted_price_test_loaded[31]) * 100
-    st.write(predicted_price_test_loaded[-31])
-    st.write(predicted_price_test_loaded[-1])
+    percentage_difference_test = ((predicted_price_test_loaded[-1] - predicted_price_test_loaded[-31]) / predicted_price_test_loaded[-31]) * 100
+
     # st.write(percentage_difference_test)
 
     # Create an interactive plot using Plotly
@@ -190,7 +189,7 @@ def DisplayGraphRaw(state, name):
         y_pred_test_loaded, sigma_range_loaded = loaded_model.predict(X_test, return_std=True)
 
         predicted_price_test_loaded = y_pred_test_loaded * np.max(filtered_data['price'])
-
+        percentage_difference_test = ((predicted_price_test_loaded[-1] - predicted_price_test_loaded[-31]) / predicted_price_test_loaded[-31]) * 100
             # Streamlit App
 
             # Create an interactive plot using Plotly
@@ -220,6 +219,7 @@ def DisplayGraphRaw(state, name):
 
             # Display the interactive plot using Streamlit
         st.plotly_chart(fig)
+        return percentage_difference_test
 
     else:
         model_filename = f"model/raw food/{file}/SVR({chosen_state}){file}.pkl"
@@ -249,7 +249,7 @@ def DisplayGraphRaw(state, name):
 
         # Denormalize the predicted prices
         predicted_price_test = y_pred_test * np.max(filtered_data['price'])
-
+        percentage_difference_test = ((predicted_price_test[-1] - predicted_price_test[-31]) / predicted_price_test[-31]) * 100
 
          # Create an interactive plot using Plotly
         fig = go.Figure()
@@ -269,7 +269,7 @@ def DisplayGraphRaw(state, name):
 
         # Display the interactive plot using Streamlit
         st.plotly_chart(fig)
-
+        return percentage_difference_test
 
 if __name__ == "__main__":
     unique_states = ['Choose a State...','Johor', 'Kedah', 'Kelantan', 'Melaka', 'Negeri Sembilan',
@@ -350,7 +350,7 @@ if __name__ == "__main__":
                 if category=="Processed Food":
                     percentage_difference=DisplayGraphProcessed(chosen_state,name)
                 elif category=="Raw Food":
-                    DisplayGraphRaw(chosen_state,name)
+                    percentage_difference=DisplayGraphRaw(chosen_state,name)
                     
         with col1:
             
