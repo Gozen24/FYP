@@ -319,7 +319,7 @@ if __name__ == "__main__":
                                             ,"MILO (PAKET),1kg","MILO (PAKET),400g"])
                 
             elif category == "Raw Food":
-                name = st.selectbox('Select Item', ["Choose an item...","BROKOLI","BETIK BIASA"])
+                name = st.selectbox('Select Item', ["Choose an item...","AYAM BERSIH - STANDARD","BROKOLI","BETIK BIASA"])
     
             # Display date picker in the second column
         with col2:
