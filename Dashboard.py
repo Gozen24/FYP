@@ -16,24 +16,30 @@ def CurrentPrice(name,category):
     data['Percentage Difference'] = data.groupby('state')['price'].pct_change() * 100
     # Filtering only the latest date prices
     df = data.groupby('state').tail(1)
-    df.reset_index(inplace=True)
-    df.index += 1 
 
-
-    df = df.rename(columns={'price': 'Price'})
+    df = df.rename(columns={'price': 'Price (NOV 2023)'})
     df = df.rename(columns={'state': 'State'})
+    high=df.nlargest(1,["Price (NOV 2023)"])
+    low=df.nsmallest(1,["Price (NOV 2023)"]).reset_index()
     
-    df['Price'] = 'RM ' + df['Price'].round(2).astype(str)
+    df['Price (NOV 2023)'] = 'RM ' + df['Price (NOV 2023)'].round(2).astype(str)
 
-    
-    
-    df['Percentage Difference'] = \
-        df['Percentage Difference'].apply(lambda x: f"{'+' if x > 0 else ''}{round(x, 2)}%{'📈' if x > 0 else ''}{'📉' if x < 0 else ''}" if pd.notna(x) else "")
+        
+    df['Percentage Difference (from OCT 2023)'] = \
+        df['Percentage Difference (from OCT 2023)'].apply(lambda x: f"{'+' if x > 0 else ''}{round(x, 2)}%{'📈' if x > 0 else ''}{'📉' if x < 0 else ''}" if pd.notna(x) else "")
                                     # .apply(lambda x: f"{'+' if x > 0 else ''}{round(x, 2)}%" if pd.notna(x) else "")
     
+    st.dataframe(df[['State',  'Price (NOV 2023)', 'Percentage Difference (from OCT 2023)']],hide_index=True, use_container_width=True,height=602)
 
-    st.write("Percentage difference of price between October 2023 and November 2023 ")
-    st.dataframe(df[['State',  'Price', 'Percentage Difference']],hide_index=True, use_container_width=True,height=602)
+    
+    state_low=low['State'].iloc[0]
+    price_low=low['Price (NOV 2023)'].iloc[0]
+
+    state_high=high['State'].iloc[0]
+    price_high=high['Price (NOV 2023)'].iloc[0]
+
+    st.write(f'Highest Price at **{state_high}** with RM **{round(price_high,2)}**')
+    st.write(f'Lowest Price at **{state_low}** with RM **{round(price_low,2)}**')
     
 def SelectBox(category):
     if category == "Processed Food":
@@ -297,74 +303,61 @@ if __name__ == "__main__":
     with tab1:
         st.subheader("This shows the price trends of the chosen food in a state.")
         st.write("")
-        col1, col2, col3 = st.columns([0.3,1,0.1])
+        col1, col2, col3 = st.columns([1,1,1])
         with col1:
-            # st.subheader("Choose your State and Item")
-            st.write("")
-            st.write("")
-            st.write("")
-            st.write("")
-            st.write("")
     
-            chosen_state = st.selectbox('Select State', unique_states)
-            category = st.selectbox('Select Food Category', ["Processed Food", "Raw Food"])
-            if category == "Processed Food":
-                name = st.selectbox('Select Item', ["Choose an item...", "COCA COLA (BOTOL),1.5 liter","COCA COLA (TIN),320ml", "DUTCH LADY UHT COKLAT (KOTAK),200ml","DUTCH LADY UHT FULL CREAM (KOTAK),200ml"
-                                            ,"F&N OREN (BOTOL),1.5 liter","F&N OREN (TIN),325 ml","HORLICKS (PAKET),400g","KICAP LEMAK MANIS CAP KIPAS UDANG,345ml"
-                                            ,"KICAP MASIN ADABI,340ml","KICAP MANIS ADABI,340ml","KORDIAL SUNQUICK (OREN),840 ml","KRIMER MANIS PEKAT CAP SAJI,500g"
-                                            ,"KRIMER SEJAT CAP F&N,390g","MACKAREL CAP AYAM (SOS TOMATO),425g","MAGGI MI SEGERA PERISA KARI,5 X 79g","MARJERIN DAISY,240g"
-                                            ,"MENTEGA ANCHOR (SALTED),227g","MENTEGA KACANG HALUS LADY'S CHOIE,340g","MI SEDAP MI GORENG PERISA ASLI,5 X 90g"
-                                            ,"MILO (PAKET),1kg","MILO (PAKET),400g"])
-                
-            elif category == "Raw Food":
-                name = st.selectbox('Select Item', ["Choose an item...","AYAM BERSIH - STANDARD","BROKOLI","BETIK BIASA"])
-    
-            # Display date picker in the second column
+            chosen_state = st.selectbox('Select State', unique_states,index=None,placeholder="Choose a state...")
         with col2:
-            # selected_date = st.date_input("Select a Date", datetime(2023, 1, 1))
-    
-            # Display Instructions when No Selection is Made
-            dummy_fig = go.Figure()
-            dummy_date = pd.to_datetime('2023-01-01')
-            dummy_fig.add_trace(go.Scatter(x=[dummy_date, dummy_date], y=[0, 0], mode='markers', name='Actual Price'))
-            dummy_fig.add_trace(go.Scatter(x=[dummy_date, dummy_date], y=[0, 0], mode='lines', name='Predicted Price', line=dict(color='#e74c3c')))
-            dummy_fig.update_layout(
-                xaxis=dict(title='Date'),
-                yaxis=dict(title='Price'),
-                title='Select a state and an item to view the graph',
-                showlegend=True,
-            )
-    
-            if ((chosen_state == 'Choose a State...') or (name == 'Choose an item...')):
-                # st.info("Please select a state and an item to view the graph.")
-                st.plotly_chart(dummy_fig)
-            else:
-                # Call the function to display the graph when a state is chosen
-                # st.info(f"Price for {name} in {chosen_state}")
-    
-                # Create two columns for layout
-                # col1, col2 = st.columns([0.4  ,2])
-    
-                # Display graph in the first column
-                # with col1:
-                if category=="Processed Food":
-                    percentage_difference=DisplayGraphProcessed(chosen_state,name)
-                elif category=="Raw Food":
-                    percentage_difference=DisplayGraphRaw(chosen_state,name)
+            category = st.selectbox('Select Food Category', ["Processed Food", "Raw Food"],index=None,placeholder="Choose a category...")
+            with col3:
+                if category is None:
+                    name = st.selectbox('Select Item',["Select Category First"],disabled=True)
+                elif category == "Processed Food":
+                    name = st.selectbox('Select Item', ["COCA COLA (BOTOL),1.5 liter","COCA COLA (TIN),320ml", "DUTCH LADY UHT COKLAT (KOTAK),200ml","DUTCH LADY UHT FULL CREAM (KOTAK),200ml"
+                                                ,"F&N OREN (BOTOL),1.5 liter","F&N OREN (TIN),325 ml","HORLICKS (PAKET),400g","KICAP LEMAK MANIS CAP KIPAS UDANG,345ml"
+                                                ,"KICAP MASIN ADABI,340ml","KICAP MANIS ADABI,340ml","KORDIAL SUNQUICK (OREN),840 ml","KRIMER MANIS PEKAT CAP SAJI,500g"
+                                                ,"KRIMER SEJAT CAP F&N,390g","MACKAREL CAP AYAM (SOS TOMATO),425g","MAGGI MI SEGERA PERISA KARI,5 X 79g","MARJERIN DAISY,240g"
+                                                ,"MENTEGA ANCHOR (SALTED),227g","MENTEGA KACANG HALUS LADY'S CHOIE,340g","MI SEDAP MI GORENG PERISA ASLI,5 X 90g"
+                                                ,"MILO (PAKET),1kg","MILO (PAKET),400g","NESCAFE CLASSIC (PAKET),200 g","NESTLE CERELAC BERAS - TIN,500g","NESTLE COFFEE-MATE,450g"
+                                                ,"PERENCAH NASI GORENG IKAN BILIS SERI AJI,26g","SANTAN KELAPA JENAMA KARA,200ml","SARDIN CAP ADABI (SOS TOMATO DENGAN CILI),425g"
+                                                ,"SARDIN CAP AYAM (SOS TOMATO),155g","SARDIN CAP AYAM (SOS TOMATO),425g","SARDIN CAP KING CUP (SOS TOMATO),155g"
+                                                ,"SARDIN CAP KING CUP (SOS TOMATO),425g","SERBUK KARI AYAM DAN DAGING ADABI,250g","SERBUK KARI DAGING BABAS,250g"
+                                                ,"SERBUK KARI IKAN ADABI,250g","SERBUK KURMA AYAM & DAGING ADABI,250g","SERBUK KURMA BABAS,125g","SERBUK NASI GORENG CINA ADABI,17g"
+                                                ,"SERBUK PERENCAH SUP ADABI,250g","SOS CILI KIMBALL,340 g","SOS CILI MAGGI,340 g","SOS CILI MAGGI,500 g","SOS TIRAM MAGGI,340g"
+                                                ,"SOS TOMATO MAGGI,325 g","SUSU TEPUNG SEGERA EVERYDAY,900g","TEH BOH (UNCANG),100 beg","TEH LIPTON (UNCANG),100 beg","TUNA CAP AYAM (TUNA MAYONNAISE),160 g"
+                                                ,"YOGURT MARIGOLD (LOW FAT) (STRAWBERRY),130g"],index=None,placeholder="Choose an item...")
                     
-        with col1:
-            
-            if ((chosen_state != 'Choose a State...') and (name != 'Choose an item...')):
-                if percentage_difference is not None:
+                elif category == "Raw Food":
+                    name = st.selectbox('Select Item', ["COCA COLA (BOTOL),1.5 liter","COCA COLA (TIN),320ml", "DUTCH LADY UHT COKLAT (KOTAK),200ml","DUTCH LADY UHT FULL CREAM (KOTAK),200ml"
+                                    ,"F&N OREN (BOTOL),1.5 liter","F&N OREN (TIN),325 ml","HORLICKS (PAKET),400g","KICAP LEMAK MANIS CAP KIPAS UDANG,345ml"
+                                    ,"KICAP MASIN ADABI,340ml","KICAP MANIS ADABI,340ml"],index=None,placeholder="Choose an item...")
     
-                    if percentage_difference > 0:
-                        st.subheader(f":red[+{str(round(percentage_difference,2))}%]")
-                    elif percentage_difference < 0:
-                        st.subheader(f":blue[{str(round(percentage_difference,2))}%]")
-            
-            # Display date picker in the second column
-            # with col2:
-                # selected_date = st.date_input("Select a Date", datetime(2023, 1, 1))
+    
+        dummy_fig = go.Figure()
+        dummy_date = pd.to_datetime('2023-01-01')
+        dummy_fig.add_trace(go.Scatter(x=[dummy_date, dummy_date], y=[0, 0], mode='markers', name='Actual Price'))
+        dummy_fig.add_trace(go.Scatter(x=[dummy_date, dummy_date], y=[0, 0], mode='lines', name='Predicted Price', line=dict(color='#e74c3c')))
+        dummy_fig.update_layout(
+            xaxis=dict(title='Date'),
+            yaxis=dict(title='Price'),
+            title='Select a state and an item to view the Trend',
+            showlegend=True,
+        )
+    
+        if ((chosen_state is None) or (name is None) or (category is None)):
+    
+            st.plotly_chart(dummy_fig)
+        else:
+    
+            percentage_difference=DisplayGraph(chosen_state, name)
+    
+        if ((chosen_state is not None) and (name is not None) and (category is not None) ):
+            if percentage_difference is not None:
+    
+                if percentage_difference > 0:
+                    st.write(f"The price is predicted to increase :red[+{str(round(percentage_difference,2))}%] in December 2023")
+                elif percentage_difference < 0:
+                    st.write(f"The price is predicted to decrease :blue[{str(round(percentage_difference,2))}%] in December 2023")
     with tab2:
         st.subheader("Percentage change in price of the chosen item from previous month in every states.")
     
