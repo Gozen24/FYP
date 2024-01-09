@@ -3,3 +3,4 @@ scikit-learn
 datetime
 plotly
 os
+re
