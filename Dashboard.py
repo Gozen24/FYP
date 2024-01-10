@@ -9,41 +9,6 @@ import os
 import re
 
 
-# def MovingAverage(state,name,category):
-#     if category == "Processed Food":
-#         data = pd.read_csv(f"data/processed food/{name}.csv")
-#     elif category == "Raw Food":
-#         data = pd.read_csv(f"data/raw food/{name}.csv")
-
-#     data = data[data['state'] == state]
-#     # Convert 'date' to datetime
-#     data['date'] = pd.to_datetime(data['date'])
-
-
-#     # Sort DataFrame by date
-#     data.sort_values(by='date', inplace=True)
-
-#     # Calculate 3-month moving average
-#     data['moving_average'] = data['price'].rolling(window=3).mean()
-
-#     fig = go.Figure()
-
-#     # Original Prices trace
-#     fig.add_trace(go.Scatter(x=data['date'], y=data['price'], mode='lines+markers', name='Original Prices', marker=dict(color='blue')))
-
-#     # Moving Average trace
-#     fig.add_trace(go.Scatter(x=data['date'], y=data['moving_average'], mode='lines+markers', name='3-Month Moving Average', marker=dict(color='orange')))
-
-#     # Update layout
-#     fig.update_layout(
-#         title='Original Prices vs 3-Month Moving Average',
-#         xaxis_title='Date',
-#         yaxis_title='Price',
-#         legend=dict(x=0, y=1, traceorder='normal', orientation='h'),
-#         template='plotly_white'
-#     )
-#     st.plotly_chart(fig)
-
 
 def CurrentPrice(name,category):
     if category == "Processed Food":
@@ -146,10 +111,10 @@ def DisplayGraphProcessed(state, name):
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=filtered_data['date'], y=filtered_data['moving_average'], mode='lines+markers', name='3-Month Moving Average', marker=dict(color='orange')))
     # Actual Price trace
-    fig.add_trace(go.Scatter(x=filtered_data['date'], y=filtered_data['price'], mode='markers', name='Actual Price', marker=dict(color='#3498db')))
+    fig.add_trace(go.Scatter(x=filtered_data['date'], y=filtered_data['price'], mode='lines+markers', name='Actual Price', marker=dict(color='#3498db')))
     # fig.add_trace(go.Scatter(x=filtered_data1['date'], y=filtered_data1['price'], mode='markers', name='Actual Price', marker=dict(color='#00ff00')))
     # Predicted Price trace
-    fig.add_trace(go.Scatter(x=date_test, y=predicted_price_test_loaded, mode='lines', name='Predicted Price', line=dict(color='#e74c3c')))
+    fig.add_trace(go.Scatter(x=date_test, y=predicted_price_test_loaded, mode='lines', name='Predicted Price (GPR)', line=dict(color='#e74c3c')))
 
     # Shaded uncertainty area
     fig.add_trace(go.Scatter(
@@ -244,10 +209,10 @@ def DisplayGraphRaw(state, name):
         fig.add_trace(go.Scatter(x=filtered_data['date'], y=filtered_data['moving_average'], mode='lines+markers', name='3-Month Moving Average', marker=dict(color='orange')))
 
             # Actual Price trace
-        fig.add_trace(go.Scatter(x=filtered_data['date'], y=filtered_data['price'], mode='markers', name='Actual Price', marker=dict(color='#3498db')))
+        fig.add_trace(go.Scatter(x=filtered_data['date'], y=filtered_data['price'], mode='lines+markers', name='Actual Price', marker=dict(color='#3498db')))
 
             # Predicted Price trace
-        fig.add_trace(go.Scatter(x=date_test, y=predicted_price_test_loaded, mode='lines', name='Predicted Price', line=dict(color='#e74c3c')))
+        fig.add_trace(go.Scatter(x=date_test, y=predicted_price_test_loaded, mode='lines', name='Predicted Price (GPR)', line=dict(color='#e74c3c')))
 
             # Shaded uncertainty area
         fig.add_trace(go.Scatter(
@@ -308,16 +273,17 @@ def DisplayGraphRaw(state, name):
         fig.add_trace(go.Scatter(x=filtered_data['date'], y=filtered_data['moving_average'], mode='lines+markers', name='3-Month Moving Average', marker=dict(color='orange')))
 
         # Actual Price trace
-        fig.add_trace(go.Scatter(x=filtered_data['date'], y=filtered_data['price'], mode='markers', name='Actual Price', marker=dict(color='#3498db')))
+        fig.add_trace(go.Scatter(x=filtered_data['date'], y=filtered_data['price'], mode='lines+markers', name='Actual Price', marker=dict(color='#3498db')))
 
         # Predicted Price trace
-        fig.add_trace(go.Scatter(x=date_test, y=predicted_price_test, mode='lines', name='Predicted Price', line=dict(color='#e74c3c')))
+        fig.add_trace(go.Scatter(x=date_test, y=predicted_price_test, mode='lines', name='Predicted Price (SVR)', line=dict(color='#e74c3c')))
 
         fig.update_layout(
         xaxis=dict(title='Date'),
         yaxis=dict(title='Price'),
         title=f'Price for {file} in {chosen_state}',
-        showlegend=True,
+        legend=dict(x=0, y=1, traceorder='normal', orientation='h'),
+        template='plotly_white'
         )
 
         # Display the interactive plot using Streamlit
