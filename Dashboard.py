@@ -141,10 +141,10 @@ def DisplayGraphProcessed(state, name):
     percentage_difference_test = ((predicted_price_test_loaded[-1] - predicted_price_test_loaded[-31]) / predicted_price_test_loaded[-31]) * 100
 
     # st.write(percentage_difference_test)
-
+    filtered_data['moving_average'] = filtered_data['price'].rolling(window=3).mean()
     # Create an interactive plot using Plotly
     fig = go.Figure()
-
+    fig.add_trace(go.Scatter(x=data['date'], y=data['moving_average'], mode='lines+markers', name='3-Month Moving Average', marker=dict(color='orange')))
     # Actual Price trace
     fig.add_trace(go.Scatter(x=filtered_data['date'], y=filtered_data['price'], mode='markers', name='Actual Price', marker=dict(color='#3498db')))
     # fig.add_trace(go.Scatter(x=filtered_data1['date'], y=filtered_data1['price'], mode='markers', name='Actual Price', marker=dict(color='#00ff00')))
@@ -165,7 +165,8 @@ def DisplayGraphProcessed(state, name):
         xaxis=dict(title='Date'),
         yaxis=dict(title='Price'),
         title=f'Price for {name} in {state}',
-        showlegend=True,
+        legend=dict(x=0, y=1, traceorder='normal', orientation='h'),
+        template='plotly_white'
     )
 
     # Display the interactive plot using Streamlit
@@ -236,8 +237,11 @@ def DisplayGraphRaw(state, name):
         percentage_difference_test = ((predicted_price_test_loaded[-1] - predicted_price_test_loaded[-31]) / predicted_price_test_loaded[-31]) * 100
             # Streamlit App
 
-            # Create an interactive plot using Plotly
+                # Create an interactive plot using Plotly
+        filtered_data['moving_average'] = filtered_data['price'].rolling(window=3).mean()
+        # Create an interactive plot using Plotly
         fig = go.Figure()
+        fig.add_trace(go.Scatter(x=data['date'], y=data['moving_average'], mode='lines+markers', name='3-Month Moving Average', marker=dict(color='orange')))
 
             # Actual Price trace
         fig.add_trace(go.Scatter(x=filtered_data['date'], y=filtered_data['price'], mode='markers', name='Actual Price', marker=dict(color='#3498db')))
@@ -258,7 +262,8 @@ def DisplayGraphRaw(state, name):
         xaxis=dict(title='Date'),
         yaxis=dict(title='Price'),
         title=f'Price for {file} in {chosen_state}',
-        showlegend=True,
+        legend=dict(x=0, y=1, traceorder='normal', orientation='h'),
+        template='plotly_white'
         )
 
             # Display the interactive plot using Streamlit
