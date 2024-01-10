@@ -301,7 +301,11 @@ def DisplayGraphRaw(state, name):
         percentage_difference_test = ((predicted_price_test[-1] - predicted_price_test[-31]) / predicted_price_test[-31]) * 100
 
          # Create an interactive plot using Plotly
+        filtered_data['moving_average'] = filtered_data['price'].rolling(window=3).mean()
+        # Create an interactive plot using Plotly
         fig = go.Figure()
+        
+        fig.add_trace(go.Scatter(x=filtered_data['date'], y=filtered_data['moving_average'], mode='lines+markers', name='3-Month Moving Average', marker=dict(color='orange')))
 
         # Actual Price trace
         fig.add_trace(go.Scatter(x=filtered_data['date'], y=filtered_data['price'], mode='markers', name='Actual Price', marker=dict(color='#3498db')))
