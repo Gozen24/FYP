@@ -9,40 +9,40 @@ import os
 import re
 
 
-def MovingAverage(state,name,category):
-    if category == "Processed Food":
-        data = pd.read_csv(f"data/processed food/{name}.csv")
-    elif category == "Raw Food":
-        data = pd.read_csv(f"data/raw food/{name}.csv")
+# def MovingAverage(state,name,category):
+#     if category == "Processed Food":
+#         data = pd.read_csv(f"data/processed food/{name}.csv")
+#     elif category == "Raw Food":
+#         data = pd.read_csv(f"data/raw food/{name}.csv")
 
-    data = data[data['state'] == state]
-    # Convert 'date' to datetime
-    data['date'] = pd.to_datetime(data['date'])
+#     data = data[data['state'] == state]
+#     # Convert 'date' to datetime
+#     data['date'] = pd.to_datetime(data['date'])
 
 
-    # Sort DataFrame by date
-    data.sort_values(by='date', inplace=True)
+#     # Sort DataFrame by date
+#     data.sort_values(by='date', inplace=True)
 
-    # Calculate 3-month moving average
-    data['moving_average'] = data['price'].rolling(window=3).mean()
+#     # Calculate 3-month moving average
+#     data['moving_average'] = data['price'].rolling(window=3).mean()
 
-    fig = go.Figure()
+#     fig = go.Figure()
 
-    # Original Prices trace
-    fig.add_trace(go.Scatter(x=data['date'], y=data['price'], mode='lines+markers', name='Original Prices', marker=dict(color='blue')))
+#     # Original Prices trace
+#     fig.add_trace(go.Scatter(x=data['date'], y=data['price'], mode='lines+markers', name='Original Prices', marker=dict(color='blue')))
 
-    # Moving Average trace
-    fig.add_trace(go.Scatter(x=data['date'], y=data['moving_average'], mode='lines+markers', name='3-Month Moving Average', marker=dict(color='orange')))
+#     # Moving Average trace
+#     fig.add_trace(go.Scatter(x=data['date'], y=data['moving_average'], mode='lines+markers', name='3-Month Moving Average', marker=dict(color='orange')))
 
-    # Update layout
-    fig.update_layout(
-        title='Original Prices vs 3-Month Moving Average',
-        xaxis_title='Date',
-        yaxis_title='Price',
-        legend=dict(x=0, y=1, traceorder='normal', orientation='h'),
-        template='plotly_white'
-    )
-    st.plotly_chart(fig)
+#     # Update layout
+#     fig.update_layout(
+#         title='Original Prices vs 3-Month Moving Average',
+#         xaxis_title='Date',
+#         yaxis_title='Price',
+#         legend=dict(x=0, y=1, traceorder='normal', orientation='h'),
+#         template='plotly_white'
+#     )
+#     st.plotly_chart(fig)
 
 
 def CurrentPrice(name,category):
@@ -144,7 +144,7 @@ def DisplayGraphProcessed(state, name):
     filtered_data['moving_average'] = filtered_data['price'].rolling(window=3).mean()
     # Create an interactive plot using Plotly
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=data['date'], y=data['moving_average'], mode='lines+markers', name='3-Month Moving Average', marker=dict(color='orange')))
+    fig.add_trace(go.Scatter(x=filtered_data['date'], y=filtered_data['moving_average'], mode='lines+markers', name='3-Month Moving Average', marker=dict(color='orange')))
     # Actual Price trace
     fig.add_trace(go.Scatter(x=filtered_data['date'], y=filtered_data['price'], mode='markers', name='Actual Price', marker=dict(color='#3498db')))
     # fig.add_trace(go.Scatter(x=filtered_data1['date'], y=filtered_data1['price'], mode='markers', name='Actual Price', marker=dict(color='#00ff00')))
@@ -241,7 +241,7 @@ def DisplayGraphRaw(state, name):
         filtered_data['moving_average'] = filtered_data['price'].rolling(window=3).mean()
         # Create an interactive plot using Plotly
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x=data['date'], y=data['moving_average'], mode='lines+markers', name='3-Month Moving Average', marker=dict(color='orange')))
+        fig.add_trace(go.Scatter(x=filtered_data['date'], y=filtered_data['moving_average'], mode='lines+markers', name='3-Month Moving Average', marker=dict(color='orange')))
 
             # Actual Price trace
         fig.add_trace(go.Scatter(x=filtered_data['date'], y=filtered_data['price'], mode='markers', name='Actual Price', marker=dict(color='#3498db')))
@@ -415,7 +415,7 @@ if __name__ == "__main__":
                     elif percentage_difference < 0:
                         st.write(f"The price is predicted to decrease :blue[{str(round(percentage_difference,2))}%] in December 2023")
 
-            MovingAverage(chosen_state,name,category)
+            # MovingAverage(chosen_state,name,category)
     with tab2:
         st.subheader("Percentage change in price of the chosen item from previous month in every states.")
     
