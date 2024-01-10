@@ -296,7 +296,7 @@ if __name__ == "__main__":
                       'Terengganu', 'W.P. Kuala Lumpur', 'W.P. Labuan', 'W.P. Putrajaya']   
     
     # Streamlit App
-    col1,col2=st.columns([0.2,1])
+    col1,col2=st.columns([0.4,0.8])
     with col1:
         st.write("")
         st.image("logo.png",width=200)
