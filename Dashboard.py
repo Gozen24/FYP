@@ -291,7 +291,7 @@ def DisplayGraphRaw(state, name):
         return percentage_difference_test
 
 if __name__ == "__main__":
-    unique_states = ['Choose a State...','Johor', 'Kedah', 'Kelantan', 'Melaka', 'Negeri Sembilan',
+    unique_states = ['Johor', 'Kedah', 'Kelantan', 'Melaka', 'Negeri Sembilan',
                       'Pahang', 'Perak', 'Perlis', 'Pulau Pinang', 'Sabah', 'Sarawak', 'Selangor', 
                       'Terengganu', 'W.P. Kuala Lumpur', 'W.P. Labuan', 'W.P. Putrajaya']   
     
