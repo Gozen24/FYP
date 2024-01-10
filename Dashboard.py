@@ -10,9 +10,9 @@ import re
 
 
 def MovingAverage(state,name,category):
-    if category == "Processed Food"
+    if category == "Processed Food":
         data = pd.read_csv(f"data/processed food/{name}.csv")
-    elif category == "Raw Food"
+    elif category == "Raw Food":
         data = pd.read_csv(f"data/raw food/{name}.csv")
 
     data = data[data['state'] == state]
