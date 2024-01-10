@@ -8,6 +8,43 @@ import sklearn
 import os
 import re
 
+
+def MovingAverage(state,name,category):
+    if category == "Processed Food"
+        data = pd.read_csv(f"data/processed food/{name}.csv")
+    elif category == "Raw Food"
+        data = pd.read_csv(f"data/raw food/{name}.csv")
+
+    data = data[data['state'] == state]
+    # Convert 'date' to datetime
+    data['date'] = pd.to_datetime(data['date'])
+
+
+    # Sort DataFrame by date
+    data.sort_values(by='date', inplace=True)
+
+    # Calculate 3-month moving average
+    data['moving_average'] = data['price'].rolling(window=3).mean()
+
+    fig = go.Figure()
+
+    # Original Prices trace
+    fig.add_trace(go.Scatter(x=data['date'], y=data['price'], mode='lines+markers', name='Original Prices', marker=dict(color='blue')))
+
+    # Moving Average trace
+    fig.add_trace(go.Scatter(x=data['date'], y=data['moving_average'], mode='lines+markers', name='3-Month Moving Average', marker=dict(color='orange')))
+
+    # Update layout
+    fig.update_layout(
+        title='Original Prices vs 3-Month Moving Average',
+        xaxis_title='Date',
+        yaxis_title='Price',
+        legend=dict(x=0, y=1, traceorder='normal', orientation='h'),
+        template='plotly_white'
+    )
+    st.plotly_chart(fig)
+
+
 def CurrentPrice(name,category):
     if category == "Processed Food":
         data = pd.read_csv("data/processed food/"+name+".csv",index_col=False)
@@ -58,7 +95,7 @@ def SelectBox(category):
 # Load the trained GP model
 def DisplayGraphProcessed(state, name):
 
-    data = pd.read_csv("movavg/" + name + ".csv")
+    data = pd.read_csv("data/processed food/" + name + ".csv")
     model_filename = f"model/processed food/({state}){name}.pkl"
 
     
@@ -365,13 +402,15 @@ if __name__ == "__main__":
             elif category=="Raw Food":
                 percentage_difference=DisplayGraphRaw(chosen_state, name)
     
-        if ((chosen_state is not None) and (name is not None) and (category is not None) ):
-            if percentage_difference is not None:
-    
-                if percentage_difference > 0:
-                    st.write(f"The price is predicted to increase :red[+{str(round(percentage_difference,2))}%] in December 2023")
-                elif percentage_difference < 0:
-                    st.write(f"The price is predicted to decrease :blue[{str(round(percentage_difference,2))}%] in December 2023")
+            if ((chosen_state is not None) and (name is not None) and (category is not None) ):
+                if percentage_difference is not None:
+        
+                    if percentage_difference > 0:
+                        st.write(f"The price is predicted to increase :red[+{str(round(percentage_difference,2))}%] in December 2023")
+                    elif percentage_difference < 0:
+                        st.write(f"The price is predicted to decrease :blue[{str(round(percentage_difference,2))}%] in December 2023")
+
+            MovingAverage(chosen_state,name,category)
     with tab2:
         st.subheader("Percentage change in price of the chosen item from previous month in every states.")
     
