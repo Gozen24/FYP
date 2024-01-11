@@ -54,7 +54,7 @@ def SelectBox(category,placeholder):
     for file in csv_files:
         itemls.append(file[:-4])
         
-    if placehoder is True:
+    if placeholder is True:
         name = st.selectbox("Item Name",itemls,index=None,placeholder="Select Item")
     else:
         name = st.selectbox("Item Name",itemls)
