@@ -325,8 +325,9 @@ if __name__ == "__main__":
     with tab1:
         st.subheader("This shows the price trends of the chosen food in a state.")
         st.write("")
+        
         col1, col2, col3 = st.columns([1,1,1])
-        with col1
+        with col1:
             chosen_state = st.selectbox('Select State', unique_states,index=None,placeholder="Choose a state...")
         
         with col2:
