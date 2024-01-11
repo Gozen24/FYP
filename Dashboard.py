@@ -44,7 +44,7 @@ def CurrentPrice(name,category):
     st.write(f'Highest Price : RM **{round(price_high,2)}** in **{state_high}**')
     st.write(f'Lowest Price : RM **{round(price_low,2)}** in **{state_low}**')
     
-def SelectBox(category):
+def SelectBox(category,placeholder):
     if category == "Processed Food":
         csv_files = [file for file in os.listdir("data/processed food") if file.endswith(".csv")]
 
@@ -53,8 +53,11 @@ def SelectBox(category):
     itemls = []
     for file in csv_files:
         itemls.append(file[:-4])
-
-    name = st.selectbox("Item Name",itemls,index=None,placeholder="Select Item")
+        
+    if placehoder is True:
+        name = st.selectbox("Item Name",itemls,index=None,placeholder="Select Item")
+    else:
+        name = st.selectbox("Item Name",itemls)
     return name
     
 # Load the trained GP model
@@ -336,7 +339,7 @@ if __name__ == "__main__":
                 if category is None:
                     name = st.selectbox('Select Item',["Select Category First"],disabled=True)
                 elif category == "Processed Food":
-                    name = SelectBox(category)
+                    name = SelectBox(category,True)
                     # name = st.selectbox('Select Item', ["COCA COLA (BOTOL),1.5 liter","COCA COLA (TIN),320ml", "DUTCH LADY UHT COKLAT (KOTAK),200ml","DUTCH LADY UHT FULL CREAM (KOTAK),200ml"
                     #                             ,"F&N OREN (BOTOL),1.5 liter","F&N OREN (TIN),325 ml","HORLICKS (PAKET),400g","KICAP LEMAK MANIS CAP KIPAS UDANG,345ml"
                     #                             ,"KICAP MASIN ADABI,340ml","KICAP MANIS ADABI,340ml","KORDIAL SUNQUICK (OREN),840 ml","KRIMER MANIS PEKAT CAP SAJI,500g"
@@ -352,7 +355,7 @@ if __name__ == "__main__":
                     #                             ,"YOGURT MARIGOLD (LOW FAT) (STRAWBERRY),130g"],index=None,placeholder="Choose an item...")
                     
                 elif category == "Raw Food":
-                    name = SelectBox(category)
+                    name = SelectBox(category,True)
                     
                     # name = st.selectbox('Select Item', ["AYAM BERSIH - STANDARD",'BAWANG BESAR IMPORT (INDIA)','BAWANG BESAR KUNING OR HOLLAND','BAWANG KECIL MERAH BIASA IMPORT (INDIA)',
                     #          'BAWANG KECIL MERAH ROSE IMPORT (INDIA)','BAWANG PERAI (LEEK) IMPORT','BAWANG PUTIH IMPORT (CHINA)','BAYAM HIJAU', 'BAYAM MERAH','BETIK BIASA','BROKOLI','CILI AKAR HIJAU','CILI AKAR MERAH',
@@ -398,7 +401,7 @@ if __name__ == "__main__":
             category=st.selectbox("Food Categories",(['Processed Food','Raw Food']))
             
         with col2:
-            name = SelectBox(category)
+            name = SelectBox(category,False)
 
         st.write("")
     
