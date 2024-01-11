@@ -44,7 +44,7 @@ def CurrentPrice(name,category):
     st.write(f'Highest Price : RM **{round(price_high,2)}** in **{state_high}**')
     st.write(f'Lowest Price : RM **{round(price_low,2)}** in **{state_low}**')
     
-def SelectBox(category,placeholder):
+def SelectBox(category,Boolean placeholder):
     if category == "Processed Food":
         csv_files = [file for file in os.listdir("data/processed food") if file.endswith(".csv")]
 
