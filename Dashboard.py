@@ -54,7 +54,7 @@ def SelectBox(category):
     for file in csv_files:
         itemls.append(file[:-4])
 
-    name = st.selectbox("Item Name",itemls)
+    name = st.selectbox("Item Name",itemls,index=None,placeholder="Select Item")
     return name
     
 # Load the trained GP model
@@ -141,19 +141,19 @@ def DisplayGraphProcessed(state, name):
 def DisplayGraphRaw(state, name):
     path = "data/raw food/"
     file = name
-    my_item = ['AYAM BERSIH - STANDARD','BAWANG BESAR IMPORT INDIA','BAWANG KECIL MERAH ROSE IMPORT INDIA','BAWANG PERAI LEEK IMPORT','BAWANG PUTIH IMPORT CHINA','BAYAM HIJAU'
-               ,'BAYAM MERAH','BETIK BIASA','CILI AKAR HIJAU','CILI HIJAU','CILI KERING KERINTING BERTANGKAI OR TIDAK BERTANGKAI','DADA AYAM CHICKEN KEEL 1KG',
-               'DAGING LEMBU TEMPATAN BAHAGIAN DAGING PAHA KECUALI BATANG PINANG - TENDERLOIN','DRAGON FRUIT MERAH','EPAL HIJAU GRANNY SMITH SAIZ M','IKAN BILIS GRED B KOPEK',
-               'IKAN CENCARU ANTARA 4 HINGGA 6 EKOR SEKILOGRAM','IKAN GELAMA ANTARA 5 HINGGA 10 EKOR SEKILOGRAM','IKAN JENAHAK','IKAN JENAHAK KEPINGAN','IKAN KEMBUNG ANTARA 8 HINGGA 12 EKOR SEKILOGRAM',
-               'IKAN KEMBUNG KECIL OR PELALING','IKAN KERISI ANTARA 5 HINGGA 10 EKOR SEKILOGRAM','IKAN MABUNG ANTARA 6 HINGGA 10 EKOR SEKILOGRAM','IKAN PARI KEPINGAN',
-               'IKAN SELAR PELATA','IKAN SELAYANG OR SARDIN','IKAN SIAKAP ANTARA 2 HINGGA 4 EKOR SEKILOGRAM','IKAN TENGGIRI BATANG KEPINGAN','IKAN TILAPIA MERAH ANTARA 2 HINGGA 5 EKOR SEKILOGRAM',
-               'JAMBU BATU BERBIJI','JAMBU BATU TANPA BIJI','KACANG BENDI','KACANG BOTOL','KACANG BUNCIS','KACANG HIJAU IMPORT','KACANG MERAH IMPORT','KACANG PANJANG','KACANG SOYA IMPORT','KACANG TANAH IMPORT',
-               'KANGKUNG','KELAPA BIJI','KELAPA PARUT','KEPAK AYAM CHICKEN WING','KEPALA IKAN JENAHAK','KERANG SAIZ SEDERHANA','KETAM RENJONG atau BUNGAANTARA 5 HINGGA 8 EKOR SEKILOGRAM','KUBIS BULAT TEMPATAN',
-               'KUBIS BULAT IMPORT BEIJING','KUBIS BULAT IMPORT CHINA','KUBIS BUNGA CAULIFLOWER','KUBIS PANJANG CHINA - BESAR','KUNYIT HIDUP','LADA BENGGALA HIJAU CAPSICUM','LADA BENGGALA KUNING CAPSICUM',
-               'LADA BENGGALA MERAH CAPSICUM','LIMAU KASTURI','LIMAU NIPIS','LOBAK MERAH','NENAS BIASA','PAHA AYAM CHICKEN DRUMSTICK','PISANG BERANGAN','PISANG EMAS','SADERI','SANTAN KELAPA SEGAR PEKAT',
-               'SOTONG Lebih atau samadengan 6 EKOR SEKILOGRAM','TAUGE KACANG HIJAU','TAUHU JENIS KERAS','TELUR AYAM GRED A','TELUR AYAM GRED B','TELUR AYAM GRED C','TELUR AYAM KAMPUNG','TELUR MASIN 1 biji',
-               'TELUR MASIN 4 biji','TEMBIKAI MERAH TANPA BIJI','TEMBIKAI SUSU','TEMPE BUNGKUSAN PLASTIK','TERUNG PANJANG','THIGH AYAM','UBI KENTANG IMPORT CHINA','UDANG HARIMAU ANTARA 20 HINGGA 30 EKOR SEKILOGRAM',
-               'UDANG KERING','UDANG PUTIH OR VANNAMEI TERNAK ANTARA 41 HINGGA 60 EKOR SEKILOGRAM','WHOLE LEG AYAM'] #bawang besar import (india ) kena buang bracket kalau nk guna gp
+    # my_item = ['AYAM BERSIH - STANDARD','BAWANG BESAR IMPORT INDIA','BAWANG KECIL MERAH ROSE IMPORT INDIA','BAWANG PERAI LEEK IMPORT','BAWANG PUTIH IMPORT CHINA','BAYAM HIJAU'
+    #            ,'BAYAM MERAH','BETIK BIASA','CILI AKAR HIJAU','CILI HIJAU','CILI KERING KERINTING BERTANGKAI OR TIDAK BERTANGKAI','DADA AYAM CHICKEN KEEL 1KG',
+    #            'DAGING LEMBU TEMPATAN BAHAGIAN DAGING PAHA KECUALI BATANG PINANG - TENDERLOIN','DRAGON FRUIT MERAH','EPAL HIJAU GRANNY SMITH SAIZ M','IKAN BILIS GRED B KOPEK',
+    #            'IKAN CENCARU ANTARA 4 HINGGA 6 EKOR SEKILOGRAM','IKAN GELAMA ANTARA 5 HINGGA 10 EKOR SEKILOGRAM','IKAN JENAHAK','IKAN JENAHAK KEPINGAN','IKAN KEMBUNG ANTARA 8 HINGGA 12 EKOR SEKILOGRAM',
+    #            'IKAN KEMBUNG KECIL OR PELALING','IKAN KERISI ANTARA 5 HINGGA 10 EKOR SEKILOGRAM','IKAN MABUNG ANTARA 6 HINGGA 10 EKOR SEKILOGRAM','IKAN PARI KEPINGAN',
+    #            'IKAN SELAR PELATA','IKAN SELAYANG OR SARDIN','IKAN SIAKAP ANTARA 2 HINGGA 4 EKOR SEKILOGRAM','IKAN TENGGIRI BATANG KEPINGAN','IKAN TILAPIA MERAH ANTARA 2 HINGGA 5 EKOR SEKILOGRAM',
+    #            'JAMBU BATU BERBIJI','JAMBU BATU TANPA BIJI','KACANG BENDI','KACANG BOTOL','KACANG BUNCIS','KACANG HIJAU IMPORT','KACANG MERAH IMPORT','KACANG PANJANG','KACANG SOYA IMPORT','KACANG TANAH IMPORT',
+    #            'KANGKUNG','KELAPA BIJI','KELAPA PARUT','KEPAK AYAM CHICKEN WING','KEPALA IKAN JENAHAK','KERANG SAIZ SEDERHANA','KETAM RENJONG atau BUNGAANTARA 5 HINGGA 8 EKOR SEKILOGRAM','KUBIS BULAT TEMPATAN',
+    #            'KUBIS BULAT IMPORT BEIJING','KUBIS BULAT IMPORT CHINA','KUBIS BUNGA CAULIFLOWER','KUBIS PANJANG CHINA - BESAR','KUNYIT HIDUP','LADA BENGGALA HIJAU CAPSICUM','LADA BENGGALA KUNING CAPSICUM',
+    #            'LADA BENGGALA MERAH CAPSICUM','LIMAU KASTURI','LIMAU NIPIS','LOBAK MERAH','NENAS BIASA','PAHA AYAM CHICKEN DRUMSTICK','PISANG BERANGAN','PISANG EMAS','SADERI','SANTAN KELAPA SEGAR PEKAT',
+    #            'SOTONG Lebih atau samadengan 6 EKOR SEKILOGRAM','TAUGE KACANG HIJAU','TAUHU JENIS KERAS','TELUR AYAM GRED A','TELUR AYAM GRED B','TELUR AYAM GRED C','TELUR AYAM KAMPUNG','TELUR MASIN 1 biji',
+    #            'TELUR MASIN 4 biji','TEMBIKAI MERAH TANPA BIJI','TEMBIKAI SUSU','TEMPE BUNGKUSAN PLASTIK','TERUNG PANJANG','THIGH AYAM','UBI KENTANG IMPORT CHINA','UDANG HARIMAU ANTARA 20 HINGGA 30 EKOR SEKILOGRAM',
+    #            'UDANG KERING','UDANG PUTIH OR VANNAMEI TERNAK ANTARA 41 HINGGA 60 EKOR SEKILOGRAM','WHOLE LEG AYAM'] #bawang besar import (india ) kena buang bracket kalau nk guna gp
     format = ".csv"
     data = pd.read_csv(path + file + format)
     
@@ -290,73 +290,7 @@ def DisplayGraphRaw(state, name):
         st.plotly_chart(fig)
         return percentage_difference_test
 
-if __name__ == "__main__":
-    unique_states = ['Johor', 'Kedah', 'Kelantan', 'Melaka', 'Negeri Sembilan',
-                      'Pahang', 'Perak', 'Perlis', 'Pulau Pinang', 'Sabah', 'Sarawak', 'Selangor', 
-                      'Terengganu', 'W.P. Kuala Lumpur', 'W.P. Labuan', 'W.P. Putrajaya']   
-    
-    # Streamlit App
-    col1,col2=st.columns([0.3,1])
-    with col1:
-        st.write("")
-        st.image("logo.png",width=200)
-    with col2:
-        st.title("HargaBarangNow")
-        
-    
-    
-    st.write("Welcome to the Website for data and insights on food prices.")
-    st.caption("Last updated on November 2023")
-    st.write("")
-    
-    
-    
-    tab1, tab2 = st.tabs(["Price Trend", "Current Price"])
-    
-    with tab1:
-        st.subheader("This shows the price trends of the chosen food in a state.")
-        st.write("")
-        col1, col2, col3 = st.columns([1,1,1])
-        with col1:
-    
-            chosen_state = st.selectbox('Select State', unique_states,index=None,placeholder="Choose a state...")
-        with col2:
-            category = st.selectbox('Select Food Category', ["Processed Food", "Raw Food"],index=None,placeholder="Choose a category...")
-            with col3:
-                if category is None:
-                    name = st.selectbox('Select Item',["Select Category First"],disabled=True)
-                elif category == "Processed Food":
-                    name = st.selectbox('Select Item', ["COCA COLA (BOTOL),1.5 liter","COCA COLA (TIN),320ml", "DUTCH LADY UHT COKLAT (KOTAK),200ml","DUTCH LADY UHT FULL CREAM (KOTAK),200ml"
-                                                ,"F&N OREN (BOTOL),1.5 liter","F&N OREN (TIN),325 ml","HORLICKS (PAKET),400g","KICAP LEMAK MANIS CAP KIPAS UDANG,345ml"
-                                                ,"KICAP MASIN ADABI,340ml","KICAP MANIS ADABI,340ml","KORDIAL SUNQUICK (OREN),840 ml","KRIMER MANIS PEKAT CAP SAJI,500g"
-                                                ,"KRIMER SEJAT CAP F&N,390g","MACKAREL CAP AYAM (SOS TOMATO),425g","MAGGI MI SEGERA PERISA KARI,5 X 79g","MARJERIN DAISY,240g"
-                                                ,"MENTEGA ANCHOR (SALTED),227g","MENTEGA KACANG HALUS LADY'S CHOIE,340g","MI SEDAP MI GORENG PERISA ASLI,5 X 90g"
-                                                ,"MILO (PAKET),1kg","MILO (PAKET),400g","NESCAFE CLASSIC (PAKET),200 g","NESTLE CERELAC BERAS - TIN,500g","NESTLE COFFEE-MATE,450g"
-                                                ,"PERENCAH NASI GORENG IKAN BILIS SERI AJI,26g","SANTAN KELAPA JENAMA KARA,200ml","SARDIN CAP ADABI (SOS TOMATO DENGAN CILI),425g"
-                                                ,"SARDIN CAP AYAM (SOS TOMATO),155g","SARDIN CAP AYAM (SOS TOMATO),425g","SARDIN CAP KING CUP (SOS TOMATO),155g"
-                                                ,"SARDIN CAP KING CUP (SOS TOMATO),425g","SERBUK KARI AYAM DAN DAGING ADABI,250g","SERBUK KARI DAGING BABAS,250g"
-                                                ,"SERBUK KARI IKAN ADABI,250g","SERBUK KURMA AYAM & DAGING ADABI,250g","SERBUK KURMA BABAS,125g","SERBUK NASI GORENG CINA ADABI,17g"
-                                                ,"SERBUK PERENCAH SUP ADABI,250g","SOS CILI KIMBALL,340 g","SOS CILI MAGGI,340 g","SOS CILI MAGGI,500 g","SOS TIRAM MAGGI,340g"
-                                                ,"SOS TOMATO MAGGI,325 g","SUSU TEPUNG SEGERA EVERYDAY,900g","TEH BOH (UNCANG),100 beg","TEH LIPTON (UNCANG),100 beg","TUNA CAP AYAM (TUNA MAYONNAISE),160 g"
-                                                ,"YOGURT MARIGOLD (LOW FAT) (STRAWBERRY),130g"],index=None,placeholder="Choose an item...")
-                    
-                elif category == "Raw Food":
-                    name = st.selectbox('Select Item', ["AYAM BERSIH - STANDARD",'BAWANG BESAR IMPORT (INDIA)','BAWANG BESAR KUNING OR HOLLAND','BAWANG KECIL MERAH BIASA IMPORT (INDIA)',
-                             'BAWANG KECIL MERAH ROSE IMPORT (INDIA)','BAWANG PERAI (LEEK) IMPORT','BAWANG PUTIH IMPORT (CHINA)','BAYAM HIJAU', 'BAYAM MERAH','BETIK BIASA','BROKOLI','CILI AKAR HIJAU','CILI AKAR MERAH',
-                             'CILI HIJAU','CILI KERING KERINTING (BERTANGKAI OR TIDAK BERTANGKAI)','DADA AYAM (CHICKEN KEEL) (1KG)','DAGING LEMBU TEMPATAN BAHAGIAN DAGING PAHA (KECUALI BATANG PINANG - TENDERLOIN)',
-                             'DRAGON FRUIT MERAH','EPAL HIJAU GRANNY SMITH (SAIZ M)','HALIA BASAH (TUA)','IKAN BAWAL HITAM (ANTARA 2 HINGGA 5 EKOR SEKILOGRAM)','IKAN BILIS GRED B (KOPEK)','IKAN CENCARU (ANTARA 4 HINGGA 6 EKOR SEKILOGRAM)',
-                             'IKAN GELAMA (ANTARA 5 HINGGA 10 EKOR SEKILOGRAM)','IKAN JENAHAK','IKAN JENAHAK (KEPINGAN)','IKAN KELI (ANTARA 2 HINGGA 5 EKOR SEKILOGRAM)','IKAN KEMBUNG (ANTARA 8 HINGGA 12 EKOR SEKILOGRAM)',
-                             'IKAN KEMBUNG KECIL OR PELALING','IKAN KERAPU (ANTARA 2 HINGGA 5 EKOR SEKILOGRAM)','IKAN KERISI (ANTARA 5 HINGGA 10 EKOR SEKILOGRAM)','IKAN MABUNG (ANTARA 6 HINGGA 10 EKOR SEKILOGRAM)',
-                             'IKAN PARI (KEPINGAN)','IKAN SELAR PELATA','IKAN SELAYANG OR SARDIN','IKAN SIAKAP (ANTARA 2 HINGGA 4 EKOR SEKILOGRAM)','IKAN TENGGIRI BATANG (ANTARA 1 HINGGA 2 EKOR SEKILOGRAM)','IKAN TENGGIRI BATANG (KEPINGAN)',
-                             'IKAN TILAPIA MERAH (ANTARA 2 HINGGA 5 EKOR SEKILOGRAM)','IKAN TONGKOL OR AYA OR KAYU HITAM (ANTARA 1 HINGGA 2 EKOR SEKILOGRAM)','JAMBU BATU BERBIJI','JAMBU BATU TANPA BIJI','KACANG BENDI','KACANG BOTOL','KACANG BUNCIS',
-                             'KACANG DAL (AUSTRALIA)','KACANG HIJAU (IMPORT)','KACANG MERAH (IMPORT)','KACANG PANJANG','KACANG SOYA (IMPORT)','KACANG TANAH (IMPORT)','KAILAN','KANGKUNG','KELAPA BIJI','KELAPA PARUT','KEPAK AYAM (CHICKEN WING)','KEPALA IKAN JENAHAK',
-                             'KERANG (SAIZ SEDERHANA)','KETAM RENJONG atau BUNGA(ANTARA 5 HINGGA 8 EKOR SEKILOGRAM)','KUBIS BULAT (TEMPATAN)' ,'KUBIS BULAT IMPORT (BEIJING)','KUBIS BULAT IMPORT (CHINA)','KUBIS BUNGA (CAULIFLOWER)', 'KUBIS PANJANG CHINA - BESAR',
-                             'KUNYIT HIDUP', 'LADA BENGGALA HIJAU (CAPSICUM)','LADA BENGGALA KUNING (CAPSICUM)', 'LADA BENGGALA MERAH (CAPSICUM)','LENGKUAS','LIMAU KASTURI', 'LIMAU NIPIS', 'LOBAK MERAH', 'NENAS BIASA' ,'PAHA AYAM (CHICKEN DRUMSTICK)', 'PISANG BERANGAN',
-                             'PISANG EMAS', 'SADERI','SANTAN KELAPA SEGAR (PEKAT)','SAWI HIJAU','SOTONG (Lebih atau samadengan 6 EKOR SEKILOGRAM)','TAUGE KACANG HIJAU' ,'TAUHU (JENIS KERAS)','TELUR AYAM GRED A','TELUR AYAM GRED B','TELUR AYAM GRED C','TELUR AYAM KAMPUNG',
-                             'TELUR MASIN (1 biji)','TELUR MASIN (4 biji)','TEMBIKAI MERAH TANPA BIJI','TEMBIKAI SUSU','TEMPE (BUNGKUSAN PLASTIK)','TERUNG PANJANG','THIGH AYAM','TIMUN','TOMATO','UBI KENTANG IMPORT (CHINA)',
-                             'UDANG HARIMAU (ANTARA 20 HINGGA 30 EKOR SEKILOGRAM)','UDANG KERING','UDANG PUTIH OR VANNAMEI (TERNAK) (ANTARA 41 HINGGA 60 EKOR SEKILOGRAM)','WHOLE LEG AYAM'],index=None,placeholder="Choose an item...")
-    
-    
+def DisplayDummy():
         dummy_fig = go.Figure()
         dummy_date = pd.to_datetime('2023-01-01')
         dummy_fig.add_trace(go.Scatter(x=[dummy_date, dummy_date], y=[0, 0], mode='markers', name='Actual Price'))
@@ -367,10 +301,79 @@ if __name__ == "__main__":
             title='Select a state and an item to view the Trend',
             showlegend=True,
         )
+
+        st.plotly_chart(dummy_fig)
+
+
+if __name__ == "__main__":
+    unique_states = ['Johor', 'Kedah', 'Kelantan', 'Melaka', 'Negeri Sembilan',
+                      'Pahang', 'Perak', 'Perlis', 'Pulau Pinang', 'Sabah', 'Sarawak', 'Selangor', 
+                      'Terengganu', 'W.P. Kuala Lumpur', 'W.P. Labuan', 'W.P. Putrajaya']   
+    
+    # Streamlit App
+    col1,col2=st.columns([0.3,1])
+    with col1:
+        st.image("logo.png",width=200)
+    with col2:
+        st.title("HargaBarangNow")
+        
+    st.write("Welcome to the Website for data and insights on food prices.")
+    st.caption("Last updated on November 2023")
+    st.write("")
+    
+    tab1, tab2 = st.tabs(["Price Trend", "Current Price"])
+    with tab1:
+        st.subheader("This shows the price trends of the chosen food in a state.")
+        st.write("")
+        col1, col2, col3 = st.columns([1,1,1])
+        with col1
+            chosen_state = st.selectbox('Select State', unique_states,index=None,placeholder="Choose a state...")
+        
+        with col2:
+            category = st.selectbox('Select Food Category', ["Processed Food", "Raw Food"],index=None,placeholder="Choose a category...")
+            with col3:
+                if category is None:
+                    name = st.selectbox('Select Item',["Select Category First"],disabled=True)
+                elif category == "Processed Food":
+                    name = SelectBox(category)
+                    # name = st.selectbox('Select Item', ["COCA COLA (BOTOL),1.5 liter","COCA COLA (TIN),320ml", "DUTCH LADY UHT COKLAT (KOTAK),200ml","DUTCH LADY UHT FULL CREAM (KOTAK),200ml"
+                    #                             ,"F&N OREN (BOTOL),1.5 liter","F&N OREN (TIN),325 ml","HORLICKS (PAKET),400g","KICAP LEMAK MANIS CAP KIPAS UDANG,345ml"
+                    #                             ,"KICAP MASIN ADABI,340ml","KICAP MANIS ADABI,340ml","KORDIAL SUNQUICK (OREN),840 ml","KRIMER MANIS PEKAT CAP SAJI,500g"
+                    #                             ,"KRIMER SEJAT CAP F&N,390g","MACKAREL CAP AYAM (SOS TOMATO),425g","MAGGI MI SEGERA PERISA KARI,5 X 79g","MARJERIN DAISY,240g"
+                    #                             ,"MENTEGA ANCHOR (SALTED),227g","MENTEGA KACANG HALUS LADY'S CHOIE,340g","MI SEDAP MI GORENG PERISA ASLI,5 X 90g"
+                    #                             ,"MILO (PAKET),1kg","MILO (PAKET),400g","NESCAFE CLASSIC (PAKET),200 g","NESTLE CERELAC BERAS - TIN,500g","NESTLE COFFEE-MATE,450g"
+                    #                             ,"PERENCAH NASI GORENG IKAN BILIS SERI AJI,26g","SANTAN KELAPA JENAMA KARA,200ml","SARDIN CAP ADABI (SOS TOMATO DENGAN CILI),425g"
+                    #                             ,"SARDIN CAP AYAM (SOS TOMATO),155g","SARDIN CAP AYAM (SOS TOMATO),425g","SARDIN CAP KING CUP (SOS TOMATO),155g"
+                    #                             ,"SARDIN CAP KING CUP (SOS TOMATO),425g","SERBUK KARI AYAM DAN DAGING ADABI,250g","SERBUK KARI DAGING BABAS,250g"
+                    #                             ,"SERBUK KARI IKAN ADABI,250g","SERBUK KURMA AYAM & DAGING ADABI,250g","SERBUK KURMA BABAS,125g","SERBUK NASI GORENG CINA ADABI,17g"
+                    #                             ,"SERBUK PERENCAH SUP ADABI,250g","SOS CILI KIMBALL,340 g","SOS CILI MAGGI,340 g","SOS CILI MAGGI,500 g","SOS TIRAM MAGGI,340g"
+                    #                             ,"SOS TOMATO MAGGI,325 g","SUSU TEPUNG SEGERA EVERYDAY,900g","TEH BOH (UNCANG),100 beg","TEH LIPTON (UNCANG),100 beg","TUNA CAP AYAM (TUNA MAYONNAISE),160 g"
+                    #                             ,"YOGURT MARIGOLD (LOW FAT) (STRAWBERRY),130g"],index=None,placeholder="Choose an item...")
+                    
+                elif category == "Raw Food":
+                    name = SelectBox(category)
+                    
+                    # name = st.selectbox('Select Item', ["AYAM BERSIH - STANDARD",'BAWANG BESAR IMPORT (INDIA)','BAWANG BESAR KUNING OR HOLLAND','BAWANG KECIL MERAH BIASA IMPORT (INDIA)',
+                    #          'BAWANG KECIL MERAH ROSE IMPORT (INDIA)','BAWANG PERAI (LEEK) IMPORT','BAWANG PUTIH IMPORT (CHINA)','BAYAM HIJAU', 'BAYAM MERAH','BETIK BIASA','BROKOLI','CILI AKAR HIJAU','CILI AKAR MERAH',
+                    #          'CILI HIJAU','CILI KERING KERINTING (BERTANGKAI OR TIDAK BERTANGKAI)','DADA AYAM (CHICKEN KEEL) (1KG)','DAGING LEMBU TEMPATAN BAHAGIAN DAGING PAHA (KECUALI BATANG PINANG - TENDERLOIN)',
+                    #          'DRAGON FRUIT MERAH','EPAL HIJAU GRANNY SMITH (SAIZ M)','HALIA BASAH (TUA)','IKAN BAWAL HITAM (ANTARA 2 HINGGA 5 EKOR SEKILOGRAM)','IKAN BILIS GRED B (KOPEK)','IKAN CENCARU (ANTARA 4 HINGGA 6 EKOR SEKILOGRAM)',
+                    #          'IKAN GELAMA (ANTARA 5 HINGGA 10 EKOR SEKILOGRAM)','IKAN JENAHAK','IKAN JENAHAK (KEPINGAN)','IKAN KELI (ANTARA 2 HINGGA 5 EKOR SEKILOGRAM)','IKAN KEMBUNG (ANTARA 8 HINGGA 12 EKOR SEKILOGRAM)',
+                    #          'IKAN KEMBUNG KECIL OR PELALING','IKAN KERAPU (ANTARA 2 HINGGA 5 EKOR SEKILOGRAM)','IKAN KERISI (ANTARA 5 HINGGA 10 EKOR SEKILOGRAM)','IKAN MABUNG (ANTARA 6 HINGGA 10 EKOR SEKILOGRAM)',
+                    #          'IKAN PARI (KEPINGAN)','IKAN SELAR PELATA','IKAN SELAYANG OR SARDIN','IKAN SIAKAP (ANTARA 2 HINGGA 4 EKOR SEKILOGRAM)','IKAN TENGGIRI BATANG (ANTARA 1 HINGGA 2 EKOR SEKILOGRAM)','IKAN TENGGIRI BATANG (KEPINGAN)',
+                    #          'IKAN TILAPIA MERAH (ANTARA 2 HINGGA 5 EKOR SEKILOGRAM)','IKAN TONGKOL OR AYA OR KAYU HITAM (ANTARA 1 HINGGA 2 EKOR SEKILOGRAM)','JAMBU BATU BERBIJI','JAMBU BATU TANPA BIJI','KACANG BENDI','KACANG BOTOL','KACANG BUNCIS',
+                    #          'KACANG DAL (AUSTRALIA)','KACANG HIJAU (IMPORT)','KACANG MERAH (IMPORT)','KACANG PANJANG','KACANG SOYA (IMPORT)','KACANG TANAH (IMPORT)','KAILAN','KANGKUNG','KELAPA BIJI','KELAPA PARUT','KEPAK AYAM (CHICKEN WING)','KEPALA IKAN JENAHAK',
+                    #          'KERANG (SAIZ SEDERHANA)','KETAM RENJONG atau BUNGA(ANTARA 5 HINGGA 8 EKOR SEKILOGRAM)','KUBIS BULAT (TEMPATAN)' ,'KUBIS BULAT IMPORT (BEIJING)','KUBIS BULAT IMPORT (CHINA)','KUBIS BUNGA (CAULIFLOWER)', 'KUBIS PANJANG CHINA - BESAR',
+                    #          'KUNYIT HIDUP', 'LADA BENGGALA HIJAU (CAPSICUM)','LADA BENGGALA KUNING (CAPSICUM)', 'LADA BENGGALA MERAH (CAPSICUM)','LENGKUAS','LIMAU KASTURI', 'LIMAU NIPIS', 'LOBAK MERAH', 'NENAS BIASA' ,'PAHA AYAM (CHICKEN DRUMSTICK)', 'PISANG BERANGAN',
+                    #          'PISANG EMAS', 'SADERI','SANTAN KELAPA SEGAR (PEKAT)','SAWI HIJAU','SOTONG (Lebih atau samadengan 6 EKOR SEKILOGRAM)','TAUGE KACANG HIJAU' ,'TAUHU (JENIS KERAS)','TELUR AYAM GRED A','TELUR AYAM GRED B','TELUR AYAM GRED C','TELUR AYAM KAMPUNG',
+                    #          'TELUR MASIN (1 biji)','TELUR MASIN (4 biji)','TEMBIKAI MERAH TANPA BIJI','TEMBIKAI SUSU','TEMPE (BUNGKUSAN PLASTIK)','TERUNG PANJANG','THIGH AYAM','TIMUN','TOMATO','UBI KENTANG IMPORT (CHINA)',
+                    #          'UDANG HARIMAU (ANTARA 20 HINGGA 30 EKOR SEKILOGRAM)','UDANG KERING','UDANG PUTIH OR VANNAMEI (TERNAK) (ANTARA 41 HINGGA 60 EKOR SEKILOGRAM)','WHOLE LEG AYAM'],index=None,placeholder="Choose an item...")
+    
+    
+
     
         if ((chosen_state is None) or (name is None) or (category is None)):
-    
-            st.plotly_chart(dummy_fig)
+            DisplayDummy()
+            
         else:
             if category=="Processed Food":
                 percentage_difference=DisplayGraphProcessed(chosen_state, name)
@@ -385,18 +388,17 @@ if __name__ == "__main__":
                     elif percentage_difference < 0:
                         st.write(f"The price is predicted to decrease :blue[{str(round(percentage_difference,2))}%] in December 2023")
 
-            # MovingAverage(chosen_state,name,category)
     with tab2:
         st.subheader("Percentage change in price of the chosen item from previous month in every states.")
     
         col1, col2, col3 = st.columns([0.3,0.3,0.3])
+        
         with col1:
-            # st.write("😊📉📈")
             category=st.selectbox("Food Categories",(['Processed Food','Raw Food']))
             
         with col2:
             name = SelectBox(category)
-        # with col2:
+
         st.write("")
     
         CurrentPrice(name,category)
