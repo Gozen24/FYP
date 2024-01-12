@@ -346,7 +346,7 @@ def ItemsPrice(state,category):
     elif category == "Raw Food":
         csv_files = [file for file in os.listdir("data/raw food") if file.endswith(".csv")]
     
-    item_df = pd.DataFrame(columns=['Item Name', 'Price (RM)'])
+    item_df = pd.DataFrame(columns=['Item Name', 'Price (Nov 2023)'])
     for file in csv_files:
         if category == "Processed Food":
             data = pd.read_csv("data/processed food/" + file)
