@@ -55,9 +55,9 @@ def SelectBox(category,placeholder):
         itemls.append(file[:-4])
         
     if placeholder is True:
-        name = st.selectbox("Item Name",itemls,index=None,placeholder="Select Item")
+        name = st.selectbox("Item Name",sorted(itemls),index=None,placeholder="Select Item")
     else:
-        name = st.selectbox("Item Name",itemls)
+        name = st.selectbox("Item Name",sorted(itemls))
     return name
     
 # Load the trained GP model
@@ -331,7 +331,7 @@ if __name__ == "__main__":
         
         col1, col2, col3 = st.columns([1,1,1])
         with col1:
-            chosen_state = st.selectbox('Select State', unique_states,index=None,placeholder="Choose a state...")
+            chosen_state = st.selectbox('Select State', sorted(unique_states),index=None,placeholder="Choose a state...")
         
         with col2:
             category = st.selectbox('Select Food Category', ["Processed Food", "Raw Food"],index=None,placeholder="Choose a category...")
