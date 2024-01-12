@@ -436,7 +436,7 @@ if __name__ == "__main__":
                 percentage_difference=DisplayGraphProcessed(chosen_state, name)
             elif category=="Raw Food":
                 percentage_difference=DisplayGraphRaw(chosen_state, name)
-    
+            st.text("INFO",help="Each data points represent the averaged monthly price for the chosen item")
             if ((chosen_state is not None) and (name is not None) and (category is not None) ):
                 if percentage_difference is not None:
         
@@ -471,7 +471,7 @@ if __name__ == "__main__":
                 # CurrentPrice(name,category)
             else:
                 Compare(name,category)
-    
+                st.divider()
                 st.subheader("Percentage Difference From Previous Month")
                 CurrentPrice(name,category)
                 
