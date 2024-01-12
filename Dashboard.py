@@ -360,7 +360,7 @@ def ItemsPrice(state,category):
         
         price=round(latest["price"].iloc[0],2)
 
-        data = {'Item Name': [file[:-4]],'Price (Nov 2023)': "RM",[price]}
+        data = {'Item Name': [file[:-4]],'Price (Nov 2023)': [price]}
         new_item = pd.DataFrame(data)
 
 
