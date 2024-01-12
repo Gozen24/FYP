@@ -503,5 +503,5 @@ if __name__ == "__main__":
                 ItemsPrice(state,category)
             else:
                 st.write("Select State And Category To Display The Price List")
-                st.dataframe(pd.DataFrame(columns=['Item Name', 'Price (RM)']),hide_index=True)
+                st.dataframe(pd.DataFrame(columns=['Item Name', 'Price (Nov 2023)']),hide_index=True)
 
