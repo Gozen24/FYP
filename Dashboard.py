@@ -494,7 +494,7 @@ if __name__ == "__main__":
             #     st.selectbox("No. of Item",([1,5,10,50]),index=None,placeholder="Select Quantity...")
             # st.write("")
             if (category is None) or (name is None):
-                st.info("Please select Item to viem the Details")
+                st.info("Please select Item to view the Details")
                 # st.sidebar.info("Selet item to view details")
                 # CurrentPrice(name,category)
             else:
