@@ -7,6 +7,7 @@ import plotly.graph_objects as go
 import sklearn
 import os
 import re
+from streamlit_option_menu import option_menu
 
 
 
