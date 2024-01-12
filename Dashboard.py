@@ -79,7 +79,7 @@ def Compare(name,category):
     st.write("")
 
 
-def SelectBox(category,placeholder):
+def SelectBox(category):
     if category == "Processed Food":
         csv_files = [file for file in os.listdir("data/processed food") if file.endswith(".csv")]
 
@@ -89,10 +89,7 @@ def SelectBox(category,placeholder):
     for file in csv_files:
         itemls.append(file[:-4])
         
-    if placeholder is True:
-        name = st.selectbox("Item Name",sorted(itemls),index=None,placeholder="Select Item")
-    else:
-        name = st.selectbox("Item Name",sorted(itemls))
+    name = st.selectbox("Item Name",sorted(itemls),index=None,placeholder="Select Item")
     return name
     
 # Load the trained GP model
