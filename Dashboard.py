@@ -21,8 +21,6 @@ def CurrentPrice(name,category):
 
     df = df.rename(columns={'price': 'Price (NOV 2023)'})
     df = df.rename(columns={'state': 'State'})
-    high=df.nlargest(1,["Price (NOV 2023)"])
-    low=df.nsmallest(1,["Price (NOV 2023)"]).reset_index()
     
     df['Price (NOV 2023)'] = 'RM ' + df['Price (NOV 2023)'].round(2).astype(str)
 
@@ -34,16 +32,52 @@ def CurrentPrice(name,category):
     st.write("Percentage difference of price between October 2023 and November 2023 ")
     st.dataframe(df[['State',  'Price (NOV 2023)', 'Percentage Difference (from OCT 2023)']],hide_index=True, use_container_width=True,height=600)
 
-    
-    state_low=low['State'].iloc[0]
-    price_low=low['Price (NOV 2023)'].iloc[0]
 
-    state_high=high['State'].iloc[0]
-    price_high=high['Price (NOV 2023)'].iloc[0]
+def Compare(name,category):
 
+    if category == "Processed Food":
+        data = pd.read_csv("data/processed food/"+name+".csv",index_col=False)
+    elif category == "Raw Food":
+        data = pd.read_csv("data/raw food/"+name+".csv",index_col=False)
+
+    data = data.groupby('state').tail(1)
+
+    high=data.nlargest(1,["price"])
+    low=data.nsmallest(1,["price"])
+
+    state_low=low['state'].iloc[0]
+    price_low=low['price'].iloc[0]
+
+    state_high=high['state'].iloc[0]
+    price_high=high['price'].iloc[0]
+
+
+
+
+    data = data.sort_values(by='price', ascending=True)
+    fig = go.Figure()
+
+    fig.add_trace(go.Bar(
+        y=data['state'],
+        x=round(data['price'],2),
+        orientation='h'
+    ))
+
+    # Customize layout
+    fig.update_layout(
+        title=f"Price for {name} in each state",
+        xaxis_title="Price (RM)",
+        yaxis_title=None,  # Remove y-axis label
+        xaxis= dict(range=[min(data['price'])-0.1,max(data['price'])])
+    )
+
+    # Display the chart using Streamlit
+    st.plotly_chart(fig)
     st.write(f'Highest Price : RM **{round(price_high,2)}** in **{state_high}**')
     st.write(f'Lowest Price : RM **{round(price_low,2)}** in **{state_low}**')
-    
+    st.write("")
+
+
 def SelectBox(category,placeholder):
     if category == "Processed Food":
         csv_files = [file for file in os.listdir("data/processed food") if file.endswith(".csv")]
@@ -306,7 +340,37 @@ def DisplayDummy():
         )
 
         st.plotly_chart(dummy_fig)
+    
+def ItemsPrice(state,category):
+    if category == "Processed Food":
+        csv_files = [file for file in os.listdir("data/processed food") if file.endswith(".csv")]
 
+    elif category == "Raw Food":
+        csv_files = [file for file in os.listdir("raw/processed food") if file.endswith(".csv")]
+    
+    item_df = pd.DataFrame(columns=['Item Name', 'Price (RM)'])
+    for file in csv_files:
+        if category == "Processed Food":
+            data = pd.read_csv("data/processed food/" + file)
+        elif category == "Raw Food":
+            data = pd.read_csv("data/raw food/" + file)
+            
+        
+        data = data[data['state'] == state]
+        latest = data.tail(1)
+
+        
+        price=round(latest["price"].iloc[0],2)
+
+        data = {'Item Name': [file[:-4]],'Price (RM)': [price]}
+        new_item = pd.DataFrame(data)
+
+
+        item_df=pd.concat([item_df, new_item], ignore_index=True)
+
+        # print(new_item)
+    st.dataframe(item_df,hide_index=True, use_container_width=True,height=602)
+    
 
 if __name__ == "__main__":
     unique_states = ['Johor', 'Kedah', 'Kelantan', 'Melaka', 'Negeri Sembilan',
@@ -323,9 +387,17 @@ if __name__ == "__main__":
     st.write("Welcome to the Website for data and insights on food prices.")
     st.caption("Last updated on November 2023")
     st.write("")
+
+    selected = option_menu(
+        menu_title= None, #required
+        options=["Price Trend","Current Price"],
+        icons=["graph-up","tags"],
+        menu_icon="cast",
+        default_index=0,
+        orientation="horizontal"
+    )
     
-    tab1, tab2 = st.tabs(["Price Trend", "Current Price"])
-    with tab1:
+    if selected == "Price Trend":
         st.subheader("This shows the price trends of the chosen food in a state.")
         st.write("")
         
@@ -392,18 +464,46 @@ if __name__ == "__main__":
                     elif percentage_difference < 0:
                         st.write(f"The price is predicted to decrease :blue[{str(round(percentage_difference,2))}%] in December 2023")
 
-    with tab2:
-        st.subheader("Percentage change in price of the chosen item from previous month in every states.")
+    elif selected == "Current Price":
+        state, item = st.tabs(["State Comparison", "Item Price"])
     
-        col1, col2, col3 = st.columns([0.3,0.3,0.3])
-        
-        with col1:
-            category=st.selectbox("Food Categories",(['Processed Food','Raw Food']))
-            
-        with col2:
-            name = SelectBox(category,False)
-
-        st.write("")
+        with state:
+            st.subheader("Percentage change in price of the chosen item from previous month in every states.")
     
-        CurrentPrice(name,category)
+            col1, col2, col3 = st.columns([0.3,0.3,0.3])
+            with col1:
+                category=st.selectbox("Food Categories",(['Processed Food','Raw Food']),index=None,placeholder="Select Category")
+                
+            with col2:
+                if category is None:
+                    name = st.selectbox('Item Name',["Select Category First"],disabled=True)
+                else:
+                    name = SelectBox(category)
+    
+            # with st.sidebar:
+            #     st.select_slider('Select a range of Month',options=['January 2022', 'orange', 'yellow', 'green', 'blue', 'indigo', 'December 2023'],value=('January 2022', 'December 2023'))
+            #     st.selectbox("No. of Item",([1,5,10,50]),index=None,placeholder="Select Quantity...")
+            # st.write("")
+            if (category is None) or (name is None):
+                st.info("Please select Item to viem the Details")
+                # st.sidebar.info("Selet item to view details")
+                # CurrentPrice(name,category)
+            else:
+                Compare(name,category)
+    
+                st.subheader("Percentage Difference From Previous Month")
+                CurrentPrice(name,category)
+                
+    
+        with item:
+            col1,col2,col3=st.columns([0.7,0.7,1])
+            with col1:
+                state=st.selectbox("Select State", unique_states,index=None,placeholder="Select State")
+            with col2:
+                category=st.selectbox("Select Categories",(['Processed Food','Raw Food']),index=None,placeholder="Select Category")
+            if state is not None and category is not None:
+                ItemsPrice(state,category)
+            else:
+                st.write("Select State And Category To Display The Price List")
+                st.dataframe(pd.DataFrame(columns=['Item Name', 'Price (RM)']),hide_index=True)
 
