@@ -2,3 +2,4 @@ joblib
 scikit-learn
 datetime
 plotly
+streamlit-option-menu
