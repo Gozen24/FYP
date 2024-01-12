@@ -477,7 +477,7 @@ if __name__ == "__main__":
         state, item = st.tabs(["State Comparison", "Item Price"])
     
         with state:
-            st.subheader("Percentage change in price of the chosen item from previous month in every states.")
+            st.subheader("Price Comparison Of The Chosen Item In Each State.")
     
             col1, col2, col3 = st.columns([0.3,0.3,0.3])
             with col1:
@@ -505,6 +505,7 @@ if __name__ == "__main__":
                 
     
         with item:
+            st.subheader("Price List of Items For a Chosen Category in a State")
             col1,col2,col3=st.columns([0.7,0.7,1])
             with col1:
                 state=st.selectbox("Select State", unique_states,index=None,placeholder="Select State")
