@@ -410,7 +410,7 @@ if __name__ == "__main__":
                 if category is None:
                     name = st.selectbox('Select Item',["Select Category First"],disabled=True)
                 elif category == "Processed Food":
-                    name = SelectBox(category,True)
+                    name = SelectBox(category)
                     # name = st.selectbox('Select Item', ["COCA COLA (BOTOL),1.5 liter","COCA COLA (TIN),320ml", "DUTCH LADY UHT COKLAT (KOTAK),200ml","DUTCH LADY UHT FULL CREAM (KOTAK),200ml"
                     #                             ,"F&N OREN (BOTOL),1.5 liter","F&N OREN (TIN),325 ml","HORLICKS (PAKET),400g","KICAP LEMAK MANIS CAP KIPAS UDANG,345ml"
                     #                             ,"KICAP MASIN ADABI,340ml","KICAP MANIS ADABI,340ml","KORDIAL SUNQUICK (OREN),840 ml","KRIMER MANIS PEKAT CAP SAJI,500g"
@@ -426,7 +426,7 @@ if __name__ == "__main__":
                     #                             ,"YOGURT MARIGOLD (LOW FAT) (STRAWBERRY),130g"],index=None,placeholder="Choose an item...")
                     
                 elif category == "Raw Food":
-                    name = SelectBox(category,True)
+                    name = SelectBox(category)
                     
                     # name = st.selectbox('Select Item', ["AYAM BERSIH - STANDARD",'BAWANG BESAR IMPORT (INDIA)','BAWANG BESAR KUNING OR HOLLAND','BAWANG KECIL MERAH BIASA IMPORT (INDIA)',
                     #          'BAWANG KECIL MERAH ROSE IMPORT (INDIA)','BAWANG PERAI (LEEK) IMPORT','BAWANG PUTIH IMPORT (CHINA)','BAYAM HIJAU', 'BAYAM MERAH','BETIK BIASA','BROKOLI','CILI AKAR HIJAU','CILI AKAR MERAH',
