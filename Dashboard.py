@@ -367,6 +367,7 @@ def ItemsPrice(state,category):
         item_df=pd.concat([item_df, new_item], ignore_index=True)
 
         # print(new_item)
+    item_df=item_df.sort_values(by='Item Name')
     st.dataframe(item_df,hide_index=True, use_container_width=True,height=602)
     
 
