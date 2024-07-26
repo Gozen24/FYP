@@ -5,7 +5,7 @@ title: test 1
 
 ---
 
-this is for getting the current price of an item and display it
+this is for gettingsdsadasdasd the current price of an item and display it
 
 ```python
 def CurrentPrice(name,category):
