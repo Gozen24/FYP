@@ -415,7 +415,7 @@ if __name__ == "__main__":
         
         col1, col2, col3 = st.columns([1,1,1])
         with col1:
-            chosen_state = st.selectbox('Select State', sorted(unique_states1))
+            chosen_state = st.selectbox('Select State', sorted(unique_states1),placeholder="select")
         
         with col2:
             category = st.selectbox('Select Food Category', ["Processed Food", "Raw Food"])
