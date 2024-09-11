@@ -99,7 +99,7 @@ def SelectBox(category):
     for file in csv_files:
         itemls.append(file[:-4])
         
-    name = st.selectbox("Item Name",sorted(itemls),index=None)
+    name = st.selectbox("Item Name",sorted(itemls),index=None,placeholder="Select Item")
     return name
     
 # Load the trained GP model
@@ -415,10 +415,10 @@ if __name__ == "__main__":
         
         col1, col2, col3 = st.columns([1,1,1])
         with col1:
-            chosen_state = st.selectbox('Select State', sorted(unique_states1),index=None)
+            chosen_state = st.selectbox('Select State', sorted(unique_states1),index=None,placeholder="Choose a state...")
         
         with col2:
-            category = st.selectbox('Select Food Category', ["Processed Food", "Raw Food"],index=None)
+            category = st.selectbox('Select Food Category', ["Processed Food", "Raw Food"],index=None,placeholder="Choose a category...")
             with col3:
                 if category is None:
                     name = st.selectbox('Select Item',["Select Category First"],disabled=True)
@@ -453,7 +453,7 @@ if __name__ == "__main__":
     
             col1, col2, col3 = st.columns([0.3,0.3,0.3])
             with col1:
-                category=st.selectbox("Food Categories",(['Processed Food','Raw Food']),index=None)
+                category=st.selectbox("Food Categories",(['Processed Food','Raw Food']),index=None,placeholder="Select Category")
                 
             with col2:
                 if category is None:
@@ -480,15 +480,15 @@ if __name__ == "__main__":
             st.subheader("Price List of Items For a Chosen Category in a State")
             col1,col2,col3=st.columns([0.7,0.7,1])
             with col1:
-                category=st.selectbox("Select Categories",(['Processed Food','Raw Food']),index=None)
+                category=st.selectbox("Select Categories",(['Processed Food','Raw Food']),index=None,placeholder="Select Category")
                 
             with col2:
                 if category is None:
                      state=st.selectbox("Select State", ["Select Category First"],disabled=True)
                 elif category == "Processed Food":
-                    state=st.selectbox("Select State", unique_states1,index=None)
+                    state=st.selectbox("Select State", unique_states1,index=None,placeholder="Select State")
                 elif category == "Raw Food":
-                    state=st.selectbox("Select State", unique_states2,index=None)
+                    state=st.selectbox("Select State", unique_states2,index=None,placeholder="Select State")
                     
             if state is not None and category is not None:
                 ItemsPrice(state,category)
