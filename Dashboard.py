@@ -418,7 +418,7 @@ if __name__ == "__main__":
             chosen_state = st.selectbox('Select State', sorted(unique_states1))
         
         with col2:
-            category = st.selectbox('Select Food Category', ["Processed Food", "Raw Food"],index=None,placeholder="Choose a category...")
+            category = st.selectbox('Select Food Category', ["Processed Food", "Raw Food"])
             with col3:
                 if category is None:
                     name = st.selectbox('Select Item',["Select Category First"],disabled=True)
@@ -453,7 +453,7 @@ if __name__ == "__main__":
     
             col1, col2, col3 = st.columns([0.3,0.3,0.3])
             with col1:
-                category=st.selectbox("Food Categories",(['Processed Food','Raw Food']),index=None,placeholder="Select Category")
+                category=st.selectbox("Food Categories",(['Processed Food','Raw Food']))
                 
             with col2:
                 if category is None:
@@ -480,15 +480,15 @@ if __name__ == "__main__":
             st.subheader("Price List of Items For a Chosen Category in a State")
             col1,col2,col3=st.columns([0.7,0.7,1])
             with col1:
-                category=st.selectbox("Select Categories",(['Processed Food','Raw Food']),index=None,placeholder="Select Category")
+                category=st.selectbox("Select Categories",(['Processed Food','Raw Food']))
                 
             with col2:
                 if category is None:
                      state=st.selectbox("Select State", ["Select Category First"],disabled=True)
                 elif category == "Processed Food":
-                    state=st.selectbox("Select State", unique_states1,index=None,placeholder="Select State")
+                    state=st.selectbox("Select State", unique_states1)
                 elif category == "Raw Food":
-                    state=st.selectbox("Select State", unique_states2,index=None,placeholder="Select State")
+                    state=st.selectbox("Select State", unique_states2)
                     
             if state is not None and category is not None:
                 ItemsPrice(state,category)
