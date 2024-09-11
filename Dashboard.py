@@ -99,7 +99,7 @@ def SelectBox(category):
     for file in csv_files:
         itemls.append(file[:-4])
         
-    name = st.selectbox("Item Name",sorted(itemls),index=None,placeholder="Select Item")
+    name = st.selectbox("Item Name",sorted(itemls))
     return name
     
 # Load the trained GP model
