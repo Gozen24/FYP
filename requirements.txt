@@ -1,8 +1,8 @@
+streamlit==1.10.0
 pandas
 numpy
 joblib
 scikit-learn
 datetime
 plotly
-streamlit==1.10.0
 streamlit_option_menu
