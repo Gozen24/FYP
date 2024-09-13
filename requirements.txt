@@ -4,3 +4,4 @@ joblib
 scikit-learn
 datetime
 plotly
+streamlit==1.13.0
