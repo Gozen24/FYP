@@ -5,3 +5,4 @@ scikit-learn
 datetime
 plotly
 streamlit==1.13.0
+streamlit_option_menu
